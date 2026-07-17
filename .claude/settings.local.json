@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"c:\\\\Users\\\\TurkesMedin\\\\Downloads\\\\medin-turkes-portfolio-v2\" && ls -la && echo \"---portfolio2---\" && ls -la portfolio2 2>/dev/null)",
+      "Read(//c/Users/TurkesMedin/Downloads/medin-turkes-portfolio-v2/**)",
+      "WebFetch(domain:www.framer.com)",
+      "WebFetch(domain:medinturkes.de)",
+      "WebSearch",
+      "WebFetch(domain:majd-portfolio.framer.website)",
+      "WebFetch(domain:quattro.framer.website)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Read(//tmp/**)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(node -e \"require.resolve\\('puppeteer'\\)\")",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(node shot.js)",
+      "Bash(npx vite *)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(curl -sf http://localhost:5183)",
+      "Bash(npx playwright *)",
+      "Bash(powershell -NoProfile -Command 'Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '\\\\''*vite*5183*'\\\\'' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }')"
+    ]
+  }
+}
