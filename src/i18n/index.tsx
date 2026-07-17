@@ -24,9 +24,9 @@ const dict = {
       educationLabel: "Education",
       workLabel: "Work",
       items: [
-        { year: "2016", category: "education", title: "Computer Science", org: "Heinrich-Heine-Universität Düsseldorf", points: ["Software engineering, algorithms & system architecture", "Programming languages, databases & networks"] },
+        { year: "2016", category: "education", title: "Computer Science", org: "Heinrich-Heine-Universität Düsseldorf", points: ["Software engineering, algorithms & systems", "Programming languages, databases & networks"] },
         { year: "2018", category: "work", title: "IT Support Specialist", org: "ControlExpert GmbH", points: ["Technical support for internal & external systems", "Assisted in software deployments"] },
-        { year: "2020", category: "education", title: "Apprenticeship – IT Specialist", org: "ControlExpert GmbH · Berufskolleg Hilden", points: ["Dual apprenticeship, application development track (2020–2023)", "Built & maintained enterprise applications on the job"] },
+        { year: "2020", category: "education", title: "Apprenticeship – IT Specialist", org: "ControlExpert GmbH · Berufskolleg Hilden", points: ["Dual apprenticeship, application development track", "Built & maintained enterprise applications on the job"] },
         { year: "2023", category: "work", title: ".NET · Azure · O365 Developer", org: "RealCore Services GmbH", points: ["Cloud apps with .NET & Azure", "RealOrders, Org Handler, Org Tool, Azure APIM"] },
       ],
     },
@@ -90,9 +90,9 @@ const dict = {
       educationLabel: "Ausbildung",
       workLabel: "Beruf",
       items: [
-        { year: "2016", category: "education", title: "Informatikstudium", org: "Heinrich-Heine-Universität Düsseldorf", points: ["Softwareentwicklung, Algorithmen & Systemarchitektur", "Programmiersprachen, Datenbanken & Netzwerke"] },
+        { year: "2016", category: "education", title: "Informatikstudium", org: "Heinrich-Heine-Universität Düsseldorf", points: ["Softwareentwicklung, Algorithmen & Systeme", "Programmiersprachen, Datenbanken & Netzwerke"] },
         { year: "2018", category: "work", title: "IT-Support-Spezialist", org: "ControlExpert GmbH", points: ["Technischer Support für interne & externe Systeme", "Unterstützung bei Software-Deployments"] },
-        { year: "2020", category: "education", title: "Ausbildung zum Fachinformatiker", org: "ControlExpert GmbH · Berufskolleg Hilden", points: ["Duale Ausbildung, Anwendungsentwicklung (2020–2023)", "Entwicklung & Wartung von Unternehmensanwendungen im Betrieb"] },
+        { year: "2020", category: "education", title: "Ausbildung zum Fachinformatiker", org: "ControlExpert GmbH · Berufskolleg Hilden", points: ["Duale Ausbildung, Anwendungsentwicklung", "Entwicklung & Wartung von Apps im Betrieb"] },
         { year: "2023", category: "work", title: ".NET · Azure · O365 Entwickler", org: "RealCore Services GmbH", points: ["Cloud-Apps mit .NET & Azure", "RealOrders, Org Handler, Org Tool, Azure APIM"] },
       ],
     },
