@@ -12,7 +12,7 @@ const dict = {
     proof: {
       eyebrow: "Trajectory",
       stats: [
-        { v: "18+", l: "Projects shipped" },
+        { v: "20+", l: "Projects shipped" },
         { v: "30+", l: "Technologies" },
         { v: "6+", l: "Years building" },
         { v: "2", l: "Azure certs" },
@@ -62,7 +62,7 @@ const dict = {
     work_page: {
       eyebrow: "Work",
       title: "Selected projects",
-      lead: "A slice of 18+ shipped products across web, cloud and mobile. Filter, then open any card.",
+      lead: "A slice of 20+ shipped products across web, cloud and mobile. Filter, then open any card.",
       filters: { all: "All", web: "Web", mobile: "Mobile", cloud: "Cloud", landing: "Landing", game: "Game" },
       stackLabel: "Stack",
       visit: "Visit project →",
@@ -78,7 +78,7 @@ const dict = {
     proof: {
       eyebrow: "Werdegang",
       stats: [
-        { v: "18+", l: "Projekte geliefert" },
+        { v: "20+", l: "Projekte geliefert" },
         { v: "30+", l: "Technologien" },
         { v: "6+", l: "Jahre Erfahrung" },
         { v: "2", l: "Azure-Zertifikate" },
@@ -92,7 +92,7 @@ const dict = {
       items: [
         { year: "2016", category: "education", title: "Informatikstudium", org: "Heinrich-Heine-Universität Düsseldorf", points: ["Softwareentwicklung, Algorithmen & Systeme", "Programmiersprachen, Datenbanken & Netzwerke"] },
         { year: "2018", category: "work", title: "IT-Support-Spezialist", org: "ControlExpert GmbH", points: ["Technischer Support für interne & externe Systeme", "Unterstützung bei Software-Deployments"] },
-        { year: "2020", category: "education", title: "Ausbildung zum Fachinformatiker", org: "ControlExpert GmbH · Berufskolleg Hilden", points: ["Duale Ausbildung, Anwendungsentwicklung", "Entwicklung & Wartung von Apps im Betrieb"] },
+        { year: "2020", category: "education", title: "Ausbildung zum Fachinformatiker", org: "ControlExpert GmbH · Berufskolleg Hilden", points: ["Duale Ausbildung, Anwendungsentwicklung", "Entwicklung & Wartung von Software im Betrieb"] },
         { year: "2023", category: "work", title: ".NET · Azure · O365 Entwickler", org: "RealCore Services GmbH", points: ["Cloud-Apps mit .NET & Azure", "RealOrders, Org Handler, Org Tool, Azure APIM"] },
       ],
     },
@@ -128,7 +128,7 @@ const dict = {
     work_page: {
       eyebrow: "Projekte",
       title: "Ausgewählte Projekte",
-      lead: "Ein Ausschnitt aus 18+ ausgelieferten Produkten in Web, Cloud und Mobile. Filtern, dann Karte öffnen.",
+      lead: "Ein Ausschnitt aus 20+ ausgelieferten Produkten in Web, Cloud und Mobile. Filtern, dann Karte öffnen.",
       filters: { all: "Alle", web: "Web", mobile: "Mobile", cloud: "Cloud", landing: "Landing", game: "Game" },
       stackLabel: "Stack",
       visit: "Projekt öffnen →",

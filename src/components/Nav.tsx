@@ -29,7 +29,7 @@ export default function Nav() {
 
       <a href="#/" className="nav-brand" onClick={(e) => { e.preventDefault(); navTo("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
         <span className="nav-mark">MT</span>
-        <span>medin.turkes</span>
+        
       </a>
 
       <div className="nav-links" aria-label="Primary">
