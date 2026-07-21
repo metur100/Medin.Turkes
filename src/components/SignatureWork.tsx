@@ -5,7 +5,7 @@ import ProjImage from "./ProjImage";
 import { navTo } from "../router";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const CURATED = ["teretnjaci", "gentle-suite", "pos-bestellapp", "tm-app"];
+const CURATED = ["teretnjaci", "gentle-suite", "skinbloom", "vip-shuttle", "tm-app"];
 
 export default function SignatureWork() {
   const { lang, t } = useLang();

@@ -34,10 +34,12 @@ const dict = {
       eyebrow: "Focus",
       title: "What I build",
       pillars: [
-        { n: "01", t: "Full-Stack Development", d: "End-to-end products — React and Next.js on top, ASP.NET Core and Node.js underneath." },
-        { n: "02", t: "Cloud & DevOps on Azure", d: "Terraform infrastructure, CI/CD pipelines and systems built to stay observable." },
-        { n: "03", t: "Mobile Apps", d: "Cross-platform iOS & Android with React Native, built to feel native." },
-        { n: "04", t: "Problem Solving", d: "Business problems dissected into systems that hold up in production." },
+        { n: "01", t: "Web Apps", d: "I build web apps for teams, startups and businesses that need something fast, clear and reliable." },
+        { n: "02", t: "Landing Pages", d: "I create landing pages that present a product well, load fast and help turn visitors into customers." },
+        { n: "03", t: "Mobile Apps", d: "I build mobile apps for iPhone and Android with a smooth, simple experience that feels right on both." },
+        { n: "04", t: "Games", d: "I create interactive game experiences, from lightweight browser concepts to polished app-based ideas." },
+        { n: "05", t: "Azure Infrastructure", d: "I set up and improve Azure environments, deployments and cloud foundations so products run cleanly." },
+        { n: "06", t: "IT Support", d: "I help solve technical problems, improve workflows and support teams when systems need to keep moving." },
       ],
     },
     work: {
@@ -100,10 +102,12 @@ const dict = {
       eyebrow: "Fokus",
       title: "Was ich baue",
       pillars: [
-        { n: "01", t: "Full-Stack-Entwicklung", d: "End-to-End-Produkte — React und Next.js oben, ASP.NET Core und Node.js darunter." },
-        { n: "02", t: "Cloud & DevOps auf Azure", d: "Terraform-Infrastruktur, CI/CD-Pipelines und durchgängig beobachtbare Systeme." },
-        { n: "03", t: "Mobile Apps", d: "Plattformübergreifend für iOS & Android mit React Native, mit nativer Anmutung." },
-        { n: "04", t: "Problemlösung", d: "Geschäftsprobleme zerlegt in Systeme, die im Betrieb zuverlässig bleiben." },
+        { n: "01", t: "Web-Apps", d: "Ich baue Web-Apps für Teams, Startups und Unternehmen, die etwas Schnelles, Klares und Zuverlässiges brauchen." },
+        { n: "02", t: "Landingpages", d: "Ich erstelle Landingpages, die ein Produkt stark präsentieren, schnell laden und Besucher in Kunden verwandeln." },
+        { n: "03", t: "Mobile Apps", d: "Ich entwickle mobile Apps für iPhone und Android mit einer einfachen, flüssigen Nutzung auf beiden Plattformen." },
+        { n: "04", t: "Games", d: "Ich baue interaktive Spielerlebnisse, von leichten Browser-Konzepten bis zu ausgearbeiteten App-Ideen." },
+        { n: "05", t: "Azure-Infrastruktur", d: "Ich richte Azure-Umgebungen, Deployments und die Cloud-Basis so ein, dass Produkte sauber laufen." },
+        { n: "06", t: "IT-Support", d: "Ich helfe bei technischen Problemen, verbessere Abläufe und unterstütze Teams, wenn Systeme zuverlässig weiterlaufen müssen." },
       ],
     },
     work: {

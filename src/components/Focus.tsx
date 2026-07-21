@@ -7,7 +7,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export default function Focus() {
   const { t } = useLang();
   const s = t.focus;
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section className="spot-sec" id="focus">

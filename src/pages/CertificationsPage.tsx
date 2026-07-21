@@ -1,5 +1,27 @@
+import { useState } from "react";
 import { useLang } from "../i18n";
 import { navTo } from "../router";
+
+function CertificateCard({ code, title, img, link }: { code: string; title: string; img: string; link: string }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  return (
+    <a className="proj cert-card" href={link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+      <div className="proj-thumb cert-thumb">
+        {!imageFailed ? (
+          <img src={img} alt={code} onError={() => setImageFailed(true)} />
+        ) : (
+          <div className="proj-fallback" aria-hidden="true">{code}</div>
+        )}
+      </div>
+      <div className="proj-body">
+        <h3>{code}</h3>
+        <p>{title}</p>
+        <div className="proj-stack"><span className="tag">Microsoft Learn</span><span className="tag">Verified</span></div>
+      </div>
+    </a>
+  );
+}
 
 export default function CertificationsPage() {
   const { lang } = useLang();
@@ -38,17 +60,7 @@ export default function CertificationsPage() {
 
           <div className="proj-grid">
             {items.map((c) => (
-              <a key={c.code} className="proj" href={c.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-                <div className="proj-thumb">
-                  <img src={c.img} alt={c.code} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
-                  <div className="proj-fallback" aria-hidden="true">{c.code}</div>
-                </div>
-                <div className="proj-body">
-                  <h3>{c.code}</h3>
-                  <p>{c.title}</p>
-                  <div className="proj-stack"><span className="tag">Microsoft Learn</span><span className="tag">Verified</span></div>
-                </div>
-              </a>
+              <CertificateCard key={c.code} code={c.code} title={c.title} img={c.img} link={c.link} />
             ))}
           </div>
         </div>
