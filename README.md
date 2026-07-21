@@ -32,6 +32,24 @@ npm run preview
 
 The static site is output to `/dist` — deploy that folder anywhere (Vercel, Netlify, Cloudflare Pages, GitHub Pages).
 
+## GitHub Pages
+
+If GitHub Pages shows a 404 for `/src/main.tsx`, it is serving the repository root `index.html` instead of the built app.
+
+Use this flow:
+
+```bash
+npm run build
+```
+
+Then publish the contents of `dist/`, not the project root.
+
+Notes:
+
+- This project uses Vite, so the root `index.html` references `/src/main.tsx` only for local development.
+- The production-ready files are generated into `dist/`.
+- `vite.config.ts` uses `base: "./"` so the built site works on both a user page like `https://metur100.github.io/` and a repository page in a subfolder.
+
 ## Add your own images
 
 Put your real project screenshots in `public/images/` using the exact filenames listed in `public/images/README.txt`. If a file is missing, the site shows a clean placeholder with the project initials — nothing breaks.
