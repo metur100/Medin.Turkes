@@ -39,7 +39,6 @@ const dict = {
         { n: "03", t: "Mobile Apps", d: "I build mobile apps for iPhone and Android with a smooth, simple experience that feels right on both." },
         { n: "04", t: "Games", d: "I create interactive game experiences, from lightweight browser concepts to polished app-based ideas." },
         { n: "05", t: "Azure Infrastructure", d: "I set up and improve Azure environments, deployments and cloud foundations so products run cleanly." },
-        { n: "06", t: "IT Support", d: "I help solve technical problems, improve workflows and support teams when systems need to keep moving." },
       ],
     },
     work: {
