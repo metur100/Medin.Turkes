@@ -107,6 +107,39 @@ export const PROJECTS: Project[] = [
     image: "vip.png", link: "https://vipshuttle-24.de/",
   },
   {
+    id: "air-clean", initials: "AC", name: "Air Clean", group: "landing",
+    tagline: { en: "Commercial Air Cleaning Landing Page", de: "Landingpage fur professionelle Luftreinigung" },
+    category: { en: "Landing Page", de: "Landingpage" },
+    description: {
+      en: "Conversion-focused landing page for Air Clean, built with React, Next.js and TypeScript. Deployed on Vercel with fast loading, clean service sections and strong mobile responsiveness.",
+      de: "Conversion-orientierte Landingpage fur Air Clean, entwickelt mit React, Next.js und TypeScript. Auf Vercel deployt mit schnellen Ladezeiten, klaren Service-Bereichen und starker mobiler Responsivitat.",
+    },
+    stack: ["React", "Next.js", "TypeScript", "Vercel"],
+    image: "airclean.png", link: "https://www.airclean-setec.de/",
+  },
+  {
+    id: "bayar-handle", initials: "BH", name: "Bayar Handle", group: "landing",
+    tagline: { en: "Brand Landing Page", de: "Marken-Landingpage" },
+    category: { en: "Landing Page", de: "Landingpage" },
+    description: {
+      en: "Modern landing page for Bayar Handle built with React, Next.js and TypeScript. Hosted on Vercel with a lightweight structure optimized for performance and SEO.",
+      de: "Moderne Landingpage fur Bayar Handle mit React, Next.js und TypeScript. Auf Vercel gehostet mit leichtgewichtiger Struktur, optimiert fur Performance und SEO.",
+    },
+    stack: ["React", "Next.js", "TypeScript", "Vercel"],
+    image: "bayar.png", link: "https://bayarhandle.de",
+  },
+  {
+    id: "kaymak-bau", initials: "KB", name: "Kaymak Bau", group: "landing",
+    tagline: { en: "Construction Company Landing Page", de: "Landingpage fur Bauunternehmen" },
+    category: { en: "Landing Page", de: "Landingpage" },
+    description: {
+      en: "Business landing page for Kaymak Bau developed with React, Vite and TypeScript. Deployed on Vercel with responsive sections, fast navigation and clear service presentation.",
+      de: "Business-Landingpage fur Kaymak Bau, entwickelt mit React, Vite und TypeScript. Auf Vercel deployt mit responsiven Bereichen, schneller Navigation und klarer Service-Darstellung.",
+    },
+    stack: ["React", "Vite", "TypeScript", "Vercel"],
+    image: "kaymakbau.png", link: "https://kaymak-bau.de",
+  },
+  {
     id: "org-handler", initials: "OH", name: "Org Handler", group: "cloud",
     tagline: { en: "Event-Driven Org Management", de: "Ereignisgesteuertes Org-Management" },
     category: { en: "Web API · MS Graph", de: "Web API · MS Graph" },
