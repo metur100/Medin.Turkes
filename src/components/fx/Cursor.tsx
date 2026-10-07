@@ -1,53 +1,38 @@
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "../../lib/motion";
 
-/* Precise dot + lagging ring. Grows over interactive elements and shows a
-   label for anything tagged with data-cursor="…". Mouse-only. */
+/* The native cursor stays (zero latency). Over anything tagged with
+   data-cursor="…" a small label pill rides alongside it. Position is
+   written straight to the DOM — no springs, no re-renders per move. */
 export default function Cursor() {
   const fine = useMediaQuery("(hover: hover) and (pointer: fine)");
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const rx = useSpring(x, { stiffness: 260, damping: 28, mass: 0.5 });
-  const ry = useSpring(y, { stiffness: 260, damping: 28, mass: 0.5 });
-  const [mode, setMode] = useState<"idle" | "link" | "label" | "solid">("idle");
+  const ref = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState("");
-  const [hidden, setHidden] = useState(true);
 
   useEffect(() => {
     if (!fine) return;
-    document.documentElement.classList.add("has-cursor");
 
-    const move = (e: PointerEvent) => { x.set(e.clientX); y.set(e.clientY); setHidden(false); };
-    const over = (e: PointerEvent) => {
-      const el = e.target as HTMLElement;
-      const tagged = el.closest<HTMLElement>("[data-cursor]");
-      if (tagged) { setLabel(tagged.dataset.cursor || ""); setMode("label"); return; }
-      /* Filled buttons already react on hover; the ring just steps aside. */
-      if (el.closest(".orb, .btn, .nav-cta, .lang-toggle")) { setMode("solid"); return; }
-      setMode(el.closest("a, button, [role=button], input, label") ? "link" : "idle");
+    const move = (e: PointerEvent) => {
+      if (ref.current) ref.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
     };
-    const leave = () => setHidden(true);
+    const over = (e: PointerEvent) => {
+      const tagged = (e.target as HTMLElement).closest<HTMLElement>("[data-cursor]");
+      setLabel(tagged?.dataset.cursor ?? "");
+    };
 
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerover", over);
-    document.addEventListener("pointerleave", leave);
+    window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("pointerover", over, { passive: true });
     return () => {
-      document.documentElement.classList.remove("has-cursor");
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerover", over);
-      document.removeEventListener("pointerleave", leave);
     };
-  }, [fine, x, y]);
+  }, [fine]);
 
   if (!fine) return null;
 
   return (
-    <>
-      <motion.div className={`cursor-ring is-${mode}${hidden ? " is-hidden" : ""}`} style={{ x: rx, y: ry }} aria-hidden>
-        <span className="cursor-label">{mode === "label" ? label : ""}</span>
-      </motion.div>
-      <motion.div className={`cursor-dot${hidden || mode === "label" ? " is-hidden" : ""}`} style={{ x, y }} aria-hidden />
-    </>
+    <div ref={ref} className="cursor-tag" aria-hidden>
+      <span className={`cursor-tag-in${label ? " is-on" : ""}`}>{label}</span>
+    </div>
   );
 }
