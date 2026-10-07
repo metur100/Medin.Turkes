@@ -1,6 +1,6 @@
 /* ============================================================
    Medin Turkes — Portfolio design system (2026)
-   Ink + bone base, one periwinkle signal. Geist / Instrument Serif / Geist Mono.
+   Ink + bone base, one warm-gray signal. Geist / Instrument Serif / Geist Mono.
    ============================================================ */
 :root {
   --bg: #070809;
@@ -12,8 +12,8 @@
   --fg: #ece8e1;
   --fg-dim: rgba(236, 232, 225, 0.64);
   --fg-faint: rgba(236, 232, 225, 0.4);
-  --accent: #8c9bff;      /* the single signal color — the shader reads it too */
-  --accent-ink: #3f4fd6;  /* deeper variant for text on the light panel */
+  --accent: #a8a39a;      /* the single signal color — the shader reads it too */
+  --accent-ink: #6b665e;  /* deeper variant for text on the light panel */
   --light: #ece8e1;
   --light-ink: #0b0c0e;
   --live: #3ddc84;
