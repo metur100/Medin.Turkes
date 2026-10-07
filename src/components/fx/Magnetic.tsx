@@ -6,8 +6,8 @@ export default function Magnetic({ children, strength = 0.35, className }: { chi
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 180, damping: 14, mass: 0.3 });
-  const sy = useSpring(y, { stiffness: 180, damping: 14, mass: 0.3 });
+  const sx = useSpring(x, { stiffness: 350, damping: 30, mass: 0.2 });
+  const sy = useSpring(y, { stiffness: 350, damping: 30, mass: 0.2 });
 
   const onMove = (e: React.PointerEvent) => {
     if (e.pointerType !== "mouse") return;

@@ -1,4 +1,12 @@
 import { useEffect, useRef } from "react";
+
+/* Reads the page accent (--accent: #rrggbb) so the shader follows the theme. */
+function accentRGB(): [number, number, number] {
+  const hex = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim().replace("#", "");
+  const n = parseInt(hex.length === 3 ? hex.split("").map((c) => c + c).join("") : hex, 16);
+  if (Number.isNaN(n)) return [0.5, 0.6, 1];
+  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+}
 import { MotionValue } from "framer-motion";
 
 const VERT = `
@@ -15,6 +23,7 @@ uniform float uTime;
 uniform vec2 uMouse;
 uniform float uFade;
 uniform float uAccent;
+uniform vec3 uTint;
 
 float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float noise(vec2 p) {
@@ -25,7 +34,7 @@ float noise(vec2 p) {
 float fbm(vec2 p) {
   float v = 0.0, a = 0.5;
   mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
-  for (int i = 0; i < 5; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
+  for (int i = 0; i < 4; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
   return v;
 }
 
@@ -46,19 +55,19 @@ void main() {
 
   vec3 ink   = vec3(0.027, 0.031, 0.036);
   vec3 deep  = vec3(0.075, 0.085, 0.11);
-  vec3 ember = vec3(1.0, 0.33, 0.1);
+  vec3 tint = uTint;
 
   vec3 col = mix(ink, deep, smoothstep(0.25, 0.95, f));
   float heat = smoothstep(0.62, 1.15, f * (0.6 + length(r) * 0.75));
-  col = mix(col, ember * 0.72, heat * uAccent);
+  col = mix(col, tint * 0.72, heat * uAccent);
 
   // topographic contour lines
   float c = abs(fract(f * 9.0) - 0.5);
   float line = smoothstep(0.455, 0.5, c);
-  col += line * mix(vec3(0.05), ember * 0.2, heat) * (0.55 + pull * 1.2);
+  col += line * mix(vec3(0.05), tint * 0.2, heat) * (0.55 + pull * 1.2);
 
   // soft spotlight around the cursor
-  col += ember * pull * 0.045 * uAccent;
+  col += tint * pull * 0.045 * uAccent;
 
   // vignette + fade
   float vig = smoothstep(1.25, 0.25, length((uv - 0.5) * vec2(aspect * 0.8, 1.15)));
@@ -77,8 +86,10 @@ function compile(gl: WebGLRenderingContext, type: number, src: string) {
   return s;
 }
 
-export default function ShaderCanvas({ fade, accent = 1, className }: { fade?: MotionValue<number>; accent?: number; className?: string }) {
+export default function ShaderCanvas({ fade, accent = 1, paused = false, className }: { fade?: MotionValue<number>; accent?: number; paused?: boolean; className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
 
   useEffect(() => {
     const canvas = ref.current!;
@@ -104,9 +115,12 @@ export default function ShaderCanvas({ fade, accent = 1, className }: { fade?: M
     const uMouse = gl.getUniformLocation(prog, "uMouse");
     const uFade = gl.getUniformLocation(prog, "uFade");
     const uAccent = gl.getUniformLocation(prog, "uAccent");
+    gl.uniform3f(gl.getUniformLocation(prog, "uTint"), ...accentRGB());
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const scale = Math.min(window.devicePixelRatio || 1, 1.5) * (window.innerWidth < 760 ? 0.5 : 0.62);
+    /* The field is soft by nature, so a low internal resolution is invisible
+       but cuts GPU work by ~4x on high-DPI screens. */
+    const scale = window.innerWidth < 760 ? 0.4 : 0.5;
 
     const resize = () => {
       const w = Math.max(1, Math.floor(canvas.clientWidth * scale));
@@ -136,9 +150,9 @@ export default function ShaderCanvas({ fade, accent = 1, className }: { fade?: M
     let raf = 0;
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (!visible || document.hidden) return;
-      mouse.x += (target.x - mouse.x) * 0.045;
-      mouse.y += (target.y - mouse.y) * 0.045;
+      if (!visible || document.hidden || pausedRef.current) return;
+      mouse.x += (target.x - mouse.x) * 0.08;
+      mouse.y += (target.y - mouse.y) * 0.08;
       gl.uniform1f(uTime, reduced ? 12 : (now - start) / 1000);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
       gl.uniform1f(uFade, fade ? fade.get() : 1);

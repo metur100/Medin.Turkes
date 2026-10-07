@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useLang } from "../i18n";
 import { EASE, useIntroDone, useLocalTime } from "../lib/motion";
 import { scrollToTarget } from "../lib/scroll";
@@ -28,25 +28,31 @@ export default function Hero() {
   const nameSpread = useTransform(smooth, [0, 1], ["-0.055em", "0.02em"]);
   const fade = useTransform(progress, [0, 1], [1, 0.25]);
 
-  /* Pointer parallax: portrait and name drift in opposite directions. */
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  const spx = useSpring(px, { stiffness: 60, damping: 20 });
-  const spy = useSpring(py, { stiffness: 60, damping: 20 });
-  const portraitX = useTransform(spx, (v) => v * 18);
-  const portraitTiltY = useTransform(spx, (v) => v * 4);
-  const portraitTiltX = useTransform(spy, (v) => v * -3);
-  const nameX = useTransform(spx, (v) => v * -14);
+  /* Once the next section fully covers the hero, stop painting it (and its
+     shader) so scrolling the rest of the page costs nothing extra. */
+  const section = useRef<HTMLElement>(null);
+  const [covered, setCovered] = useState(false);
+  useMotionValueEvent(progress, "change", (v) => setCovered(v >= 1));
 
-  useEffect(() => {
-    const on = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      px.set(e.clientX / window.innerWidth - 0.5);
-      py.set(e.clientY / window.innerHeight - 0.5);
+  /* The portrait lives in the band between the meta row and the name, so
+     it never runs underneath the headline at any viewport size. */
+  const meta = useRef<HTMLDivElement>(null);
+  const name = useRef<HTMLHeadingElement>(null);
+  useLayoutEffect(() => {
+    const fit = () => {
+      const el = section.current, m = meta.current, n = name.current;
+      if (!el || !m || !n) return;
+      const top = m.offsetTop + m.offsetHeight + 16;
+      const bottom = n.offsetTop - 4;
+      el.style.setProperty("--p-top", `${top}px`);
+      el.style.setProperty("--p-h", `${Math.max(0, bottom - top)}px`);
     };
-    window.addEventListener("pointermove", on, { passive: true });
-    return () => window.removeEventListener("pointermove", on);
-  }, [px, py]);
+    fit();
+    const ro = new ResizeObserver(fit);
+    if (section.current) ro.observe(section.current);
+    if (name.current) ro.observe(name.current);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!ready) return;
@@ -62,14 +68,14 @@ export default function Hero() {
   });
 
   return (
-    <section className="hero" id="top">
+    <section className={`hero${covered ? " is-covered" : ""}`} id="top" ref={section}>
       <div className="hero-bg">
-        <ShaderCanvas fade={fade} />
+        <ShaderCanvas fade={fade} paused={covered} />
         <motion.div className="hero-bg-veil" initial={{ opacity: 1 }} animate={{ opacity: ready ? 0 : 1 }} transition={{ duration: 2.2, ease: EASE }} />
       </div>
       {/* Outside .hero-inner so "lighten" blends the photo's black backdrop into the shader. */}
       <motion.div className="hero-portrait"
-        style={{ y: portraitY, x: portraitX, rotateY: portraitTiltY, rotateX: portraitTiltX, opacity: innerOpacity }}>
+        style={{ y: portraitY, opacity: innerOpacity }}>
         <motion.div className="hero-portrait-in"
           initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.15 }}
           animate={ready ? { clipPath: "inset(0% 0% 0% 0%)", scale: 1 } : {}}
@@ -85,7 +91,7 @@ export default function Hero() {
       <div className="grain" aria-hidden />
 
       <motion.div className="hero-inner" style={{ scale: innerScale, y: innerY, opacity: innerOpacity }}>
-        <div className="hero-meta mono">
+        <div className="hero-meta mono" ref={meta}>
           <motion.span {...fadeUp(0.5)}>{t.hero.kicker}</motion.span>
           <motion.span {...fadeUp(0.58)} className="hero-meta-mid">{t.hero.based} <b>· {time}</b></motion.span>
           <motion.span {...fadeUp(0.66)} className="hero-meta-end"><i className="pulse" aria-hidden />{t.hero.available}</motion.span>
@@ -115,7 +121,7 @@ export default function Hero() {
           </motion.ul>
         </div>
 
-        <motion.h1 className="hero-name" aria-label={NAME} style={{ x: nameX, letterSpacing: nameSpread }}
+        <motion.h1 className="hero-name" ref={name} aria-label={NAME} style={{ letterSpacing: nameSpread }}
           initial="hidden" animate={show}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.045, delayChildren: 0.25 } } }}>
           {NAME.split("").map((ch, i) => (
