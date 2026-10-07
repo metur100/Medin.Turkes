@@ -1,17 +1,16 @@
 import Work from "../components/Work";
-import { navTo } from "../router";
+import PageHead from "../components/PageHead";
 import { useLang } from "../i18n";
 
 export default function ProjectsPage() {
-  const { lang } = useLang();
+  const { t } = useLang();
+  const s = t.work_page;
   return (
-    <div style={{ paddingTop: 86 }}>
-      <div className="wrap" style={{ paddingBottom: 10 }}>
-        <button className="btn btn-ghost" onClick={() => navTo("home")}>
-          {lang === "de" ? "← Zurück" : "← Back"}
-        </button>
+    <main className="page">
+      <div className="wrap">
+        <PageHead index="A" eyebrow={s.eyebrow} title={s.title} lead={s.lead} back={s.back} />
+        <Work />
       </div>
-      <Work />
-    </div>
+    </main>
   );
 }

@@ -1,56 +1,58 @@
 import { motion } from "framer-motion";
 import { useLang } from "../i18n";
-import { useMagnetic } from "./useMagnetic";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { EASE } from "../lib/motion";
+import ShaderCanvas from "./fx/ShaderCanvas";
+import Magnetic from "./fx/Magnetic";
+import { Eyebrow, Roll, SplitReveal } from "./fx/Text";
 
 export default function Contact() {
   const { t } = useLang();
   const s = t.contact;
-  const cta = useMagnetic(18);
 
   return (
-    <section className="spot-sec spot-sec-close" id="contact">
-      <div className="noir-glow noir-glow-close" aria-hidden />
-      <div className="wrap noir-close">
-        <motion.p className="eyebrow"
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: EASE }}>
-          <span className="idx">05</span> / {s.eyebrow}
-        </motion.p>
+    <section className="contact" id="contact">
+      <div className="contact-bg"><ShaderCanvas accent={0.8} /></div>
+      <div className="grain" aria-hidden />
 
-        <motion.h2 className="sec-title noir-close-title"
-          initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1, ease: EASE, delay: 0.1 }}>
-          {s.title}
-        </motion.h2>
+      <div className="wrap contact-in">
+        <Eyebrow index="06" label={s.eyebrow} />
+        <SplitReveal as="h2" className="contact-title" text={s.title} stagger={0.06} duration={1.2} />
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}>
-          <motion.a
-            href="mailto:medinturkes@gmail.com" className="btn btn-primary magnetic noir-close-btn"
-            ref={cta.ref} style={{ x: cta.x, y: cta.y }}
-            onMouseMove={cta.onMouseMove} onMouseLeave={cta.onMouseLeave}
-          >
-            {s.send}
-          </motion.a>
-        </motion.div>
+        <div className="contact-row">
+          <motion.p className="contact-sub"
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 1, ease: EASE, delay: 0.3 }}>
+            {s.sub}
+          </motion.p>
 
-        <motion.div className="noir-channels mono"
-          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-60px" }} transition={{ duration: 1, delay: 0.5 }}>
+          <motion.div initial={{ opacity: 0, scale: 0.6 }} whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }} transition={{ duration: 1.1, ease: EASE, delay: 0.35 }}>
+            <Magnetic strength={0.4}>
+              <a href="mailto:medinturkes@gmail.com" className="orb orb-accent">
+                <span className="orb-arrow" aria-hidden>↗</span>
+                <span className="orb-label"><Roll>{s.send}</Roll></span>
+              </a>
+            </Magnetic>
+          </motion.div>
+        </div>
+
+        <ul className="contact-links">
           {s.links.map((l, i) => (
-            <span key={l.k}>
+            <motion.li key={l.k}
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "0px 0px -5% 0px" }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.1 + i * 0.07 }}>
+              <span className="contact-k mono">{l.k}</span>
               {l.href ? (
-                <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{l.v}</a>
+                <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="contact-v">
+                  <Roll>{l.v}</Roll>
+                </a>
               ) : (
-                <span>{l.v}</span>
+                <span className="contact-v">{l.v}</span>
               )}
-              {i < s.links.length - 1 && <i aria-hidden>·</i>}
-            </span>
+            </motion.li>
           ))}
-        </motion.div>
+        </ul>
       </div>
     </section>
   );

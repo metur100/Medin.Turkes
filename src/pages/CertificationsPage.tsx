@@ -1,70 +1,58 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useLang } from "../i18n";
-import { navTo } from "../router";
+import { EASE } from "../lib/motion";
+import PageHead from "../components/PageHead";
 
-function CertificateCard({ code, title, img, link }: { code: string; title: string; img: string; link: string }) {
-  const [imageFailed, setImageFailed] = useState(false);
+const CERTS = [
+  {
+    code: "AZ-204",
+    title: "Developing Solutions for Microsoft Azure",
+    level: "Associate",
+    img: "AZ-204.jpg",
+    link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/B75568EF6554FF05?sharingId=2FC7333E7C13C43F",
+  },
+  {
+    code: "AZ-400",
+    title: "DevOps Engineer Expert",
+    level: "Expert",
+    img: "AZ-400.jpg",
+    link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/F1DF60653B363978?sharingId=2FC7333E7C13C43F",
+  },
+];
 
+function CertCard({ c, i, verify }: { c: (typeof CERTS)[number]; i: number; verify: string }) {
+  const [failed, setFailed] = useState(false);
   return (
-    <a className="proj cert-card" href={link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-      <div className="proj-thumb cert-thumb">
-        {!imageFailed ? (
-          <img src={img} alt={code} onError={() => setImageFailed(true)} />
-        ) : (
-          <div className="proj-fallback" aria-hidden="true">{code}</div>
-        )}
+    <motion.a className="cert" href={c.link} target="_blank" rel="noopener noreferrer" data-cursor={verify}
+      initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: EASE, delay: 0.7 + i * 0.12 }}>
+      <div className="cert-thumb">
+        {!failed
+          ? <img src={`${import.meta.env.BASE_URL}images/${c.img}`} alt={c.code} onError={() => setFailed(true)} />
+          : <span className="cert-fallback">{c.code}</span>}
       </div>
-      <div className="proj-body">
-        <h3>{code}</h3>
-        <p>{title}</p>
-        <div className="proj-stack"><span className="tag">Microsoft Learn</span><span className="tag">Verified</span></div>
+      <div className="cert-body">
+        <span className="cert-level mono">Microsoft · {c.level}</span>
+        <h3>{c.code}</h3>
+        <p>{c.title}</p>
+        <span className="cert-verify mono">{verify} ↗</span>
       </div>
-    </a>
+    </motion.a>
   );
 }
 
 export default function CertificationsPage() {
-  const { lang } = useLang();
-
-  const items = [
-    {
-      code: "AZ-204",
-      title: lang === "de" ? "Developing Solutions for Microsoft Azure" : "Developing Solutions for Microsoft Azure",
-      img: `${import.meta.env.BASE_URL}images/AZ-204.jpg`,
-      link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/B75568EF6554FF05?sharingId=2FC7333E7C13C43F",
-    },
-    {
-      code: "AZ-400",
-      title: lang === "de" ? "DevOps Engineer Expert" : "DevOps Engineer Expert",
-      img: `${import.meta.env.BASE_URL}images/AZ-400.jpg`,
-      link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/F1DF60653B363978?sharingId=2FC7333E7C13C43F",
-    },
-  ];
-
+  const { t } = useLang();
+  const s = t.certs;
   return (
-    <div style={{ paddingTop: 86 }}>
-      <section className="sec">
-        <div className="wrap">
-          <div className="sec-head">
-            <button className="btn btn-ghost" onClick={() => navTo("home")}>
-              {lang === "de" ? "← Zurück" : "← Back"}
-            </button>
-            <p className="eyebrow" style={{ marginTop: 18 }}>
-              <span className="idx">§C1</span> / {lang === "de" ? "Zertifikate" : "Certifications"}
-            </p>
-            <h2 className="sec-title">Azure <span className="amber">Credentials</span></h2>
-            <p className="lead" style={{ maxWidth: 560 }}>
-              {lang === "de" ? "Zwei Zertifikate — verifizierbar über Microsoft." : "Two certifications — verifiable via Microsoft."}
-            </p>
-          </div>
-
-          <div className="proj-grid">
-            {items.map((c) => (
-              <CertificateCard key={c.code} code={c.code} title={c.title} img={c.img} link={c.link} />
-            ))}
-          </div>
+    <main className="page">
+      <div className="wrap">
+        <PageHead index="B" eyebrow={s.eyebrow} title={s.title} lead={s.lead} back={s.back} />
+        <div className="cert-grid">
+          {CERTS.map((c, i) => <CertCard key={c.code} c={c} i={i} verify={s.verify} />)}
         </div>
-      </section>
-    </div>
+      </div>
+    </main>
   );
 }

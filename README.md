@@ -1,18 +1,19 @@
 # Medin Turkes — Portfolio
 
-A dark, blueprint-themed developer portfolio built with **React + TypeScript + Vite**.
+A cinematic, motion-driven developer portfolio built with **React + TypeScript + Vite**, **Framer Motion** and **Lenis** smooth scrolling.
 
-Signature interaction: a boot-up terminal intro that hands off into a **scroll-driven horizontal career timeline**. Fully responsive, EN/DE language toggle, keyboard-accessible, and reduced-motion aware.
+Highlights: a WebGL flow-field hero (cursor-reactive, with topographic contour lines) behind a sticky hero the page slides over, a preloader curtain, scroll-lit manifesto text, sticky stacking service cards, a pinned horizontal work gallery, velocity-reactive marquees, a custom cursor and magnetic buttons. Fully responsive, EN/DE (auto-detected, remembered), keyboard-accessible and reduced-motion aware (smooth scroll, shader animation and transforms are disabled).
 
-## Palette (black + white base, steel structure, one amber signal)
+## Palette (ink + bone base, one ember signal)
 
 | Role | Hex |
 |------|-----|
-| Ink (background) | `#0A0C10` |
-| Panel (surface) | `#12161C` |
-| Paper (white / text) | `#EAEEF2` |
-| Steel (structure) | `#5E7C97` |
-| Amber (single signal color) | `#E8A64B` |
+| Ink (background) | `#070809` |
+| Surface | `#121418` |
+| Bone (text / light panel) | `#ECE8E1` |
+| Ember (single signal color) | `#FF5A1F` |
+
+Type: Geist (display/body), Instrument Serif italic (accents), Geist Mono (labels).
 
 ## Run locally
 
@@ -64,3 +65,4 @@ Recommended: 800 x 500 px (16:10), `.jpg` or `.png`.
 | Projects list | `src/data/projects.ts` |
 | Colors, spacing, layout | `src/styles.css` |
 | Sections order | `src/App.tsx` |
+| Motion primitives (reveals, cursor, shader, marquee) | `src/components/fx/` |

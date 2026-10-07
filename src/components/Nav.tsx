@@ -1,62 +1,132 @@
 import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 import { useLang, Lang } from "../i18n";
 import { navTo, useRoute } from "../router";
+import { EASE, EASE_IN_OUT, useIntroDone } from "../lib/motion";
+import { lockScroll, scrollToTarget } from "../lib/scroll";
+import Magnetic from "./fx/Magnetic";
+import { Roll } from "./fx/Text";
 
 export default function Nav() {
   const { lang, setLang, t } = useLang();
   const route = useRoute();
+  const ready = useIntroDone();
   const [scrolled, setScrolled] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.3 });
+  const [hidden, setHidden] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { scrollY, scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.3 });
+
+  /* Tuck away while reading downward, return on any upward scroll. */
+  useMotionValueEvent(scrollY, "change", (v) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setScrolled(v > 40);
+    setHidden(v > prev && v > 400);
+  });
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 40);
-    on(); window.addEventListener("scroll", on);
-    return () => window.removeEventListener("scroll", on);
-  }, []);
+    if (!open) return;
+    lockScroll(true);
+    return () => lockScroll(false);
+  }, [open]);
+  useEffect(() => { setOpen(false); }, [route]);
 
-  const homeLinks: [string, string][] = [
-    ["#timeline", t.nav.timeline],
-    ["#focus", t.nav.focus],
-    ["#work", t.nav.work],
-    ["#contact", t.nav.contact],
+  const sections: [string, string][] = [
+    ["about", t.nav.about],
+    ["focus", t.nav.focus],
+    ["work", t.nav.work],
+    ["timeline", t.nav.timeline],
+  ];
+
+  const goSection = (id: string) => {
+    setOpen(false);
+    if (route !== "home") {
+      navTo("home");
+      window.setTimeout(() => scrollToTarget(`#${id}`), 120);
+    } else {
+      window.setTimeout(() => scrollToTarget(`#${id}`), open ? 450 : 0);
+    }
+  };
+  const goPage = (r: "home" | "projects" | "certifications") => {
+    setOpen(false);
+    if (r === "home" && route === "home") scrollToTarget(0);
+    else navTo(r);
+  };
+
+  const menuLinks: { label: string; act: () => void }[] = [
+    ...sections.map(([id, label]) => ({ label, act: () => goSection(id) })),
+    { label: t.nav.contact, act: () => goSection("contact") },
+    { label: t.nav.allProjects, act: () => goPage("projects") },
+    { label: t.nav.certifications, act: () => goPage("certifications") },
   ];
 
   return (
-    <nav className={`nav${scrolled ? " scrolled" : ""}`}>
-      <motion.div className="nav-progress" style={{ scaleX: progress }} aria-hidden />
+    <>
+      <motion.header
+        className={`nav${scrolled ? " is-scrolled" : ""}${hidden && !open ? " is-hidden" : ""}${open ? " is-open" : ""}`}
+        initial={{ y: -30, opacity: 0 }} animate={ready ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 1, ease: EASE, delay: 0.9 }}>
+        <motion.div className="nav-progress" style={{ scaleX: progress }} aria-hidden />
 
-      <a href="#/" className="nav-brand" onClick={(e) => { e.preventDefault(); navTo("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-        <span className="nav-mark">MT</span>
-        
-      </a>
+        <a href="#/" className="nav-brand" onClick={(e) => { e.preventDefault(); goPage("home"); }} aria-label="Medin Turkes — home">
+          <span className="nav-mark">MT</span>
+          <span className="nav-brand-name"><Roll>Medin Turkes</Roll></span>
+        </a>
 
-      <div className="nav-links" aria-label="Primary">
-        {route === "home" ? (
-          <>
-            {homeLinks.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
-            <a href="#/projects" onClick={(e) => { e.preventDefault(); navTo("projects"); }}>{t.nav.allProjects}</a>
-            <a href="#/certifications" onClick={(e) => { e.preventDefault(); navTo("certifications"); }}>{t.nav.certifications}</a>
-          </>
-        ) : (
-          <>
-            <a href="#/" onClick={(e) => { e.preventDefault(); navTo("home"); }}>{lang === "de" ? "Start" : "Home"}</a>
-            <a href="#/projects" onClick={(e) => { e.preventDefault(); navTo("projects"); }}>{t.nav.allProjects}</a>
-            <a href="#/certifications" onClick={(e) => { e.preventDefault(); navTo("certifications"); }}>{t.nav.certifications}</a>
-          </>
-        )}
-      </div>
-
-      <div className="nav-right">
-        <div className="lang-toggle" role="group" aria-label="Language">
-          {(["en", "de"] as Lang[]).map((l) => (
-            <button key={l} className={lang === l ? "on" : ""} onClick={() => setLang(l)} aria-pressed={lang === l}>
-              {l.toUpperCase()}
-            </button>
+        <nav className="nav-links" aria-label="Primary">
+          {sections.map(([id, label]) => (
+            <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); goSection(id); }}><Roll>{label}</Roll></a>
           ))}
+          <a href="#/projects" className={route === "projects" ? "is-active" : ""}
+            onClick={(e) => { e.preventDefault(); goPage("projects"); }}><Roll>{t.nav.allProjects}</Roll></a>
+          <a href="#/certifications" className={route === "certifications" ? "is-active" : ""}
+            onClick={(e) => { e.preventDefault(); goPage("certifications"); }}><Roll>{t.nav.certifications}</Roll></a>
+        </nav>
+
+        <div className="nav-right">
+          <div className="lang-toggle mono" role="group" aria-label="Language">
+            {(["en", "de"] as Lang[]).map((l) => (
+              <button key={l} className={lang === l ? "on" : ""} onClick={() => setLang(l)} aria-pressed={lang === l}>
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          <Magnetic strength={0.25} className="nav-cta-wrap">
+            <a href="#contact" className="nav-cta" onClick={(e) => { e.preventDefault(); goSection("contact"); }}>
+              <i className="pulse" aria-hidden /><Roll>{t.nav.talk}</Roll>
+            </a>
+          </Magnetic>
+          <button className="nav-burger" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu"
+            aria-label={open ? t.nav.close : t.nav.menu}>
+            <span /><span />
+          </button>
         </div>
-      </div>
-    </nav>
+      </motion.header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div id="mobile-menu" className="menu" data-lenis-prevent
+            initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)" }} transition={{ duration: 0.8, ease: EASE_IN_OUT }}>
+            <ul className="menu-list">
+              {menuLinks.map((l, i) => (
+                <li key={l.label} className="sw">
+                  <motion.button className="sw-i" onClick={l.act}
+                    initial={{ y: "110%" }} animate={{ y: 0 }} exit={{ y: "110%" }}
+                    transition={{ duration: 0.8, ease: EASE, delay: 0.25 + i * 0.05 }}>
+                    <span className="menu-idx mono">0{i + 1}</span>{l.label}
+                  </motion.button>
+                </li>
+              ))}
+            </ul>
+            <motion.div className="menu-foot mono" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ delay: 0.6 }}>
+              <a href="mailto:medinturkes@gmail.com">medinturkes@gmail.com</a>
+              <span>Düsseldorf, DE</span>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
