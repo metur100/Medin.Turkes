@@ -82,7 +82,7 @@ export default function Hero() {
           transition={{ duration: 1.6, ease: EASE, delay: 0.15 }}>
           {!photoFail ? (
             <img src={`${import.meta.env.BASE_URL}images/profile.png`} alt="Medin Turkes"
-              onError={() => setPhotoFail(true)} fetchPriority="high" />
+              onError={() => setPhotoFail(true)} {...{ fetchpriority: "high" }} />
           ) : (
             <div className="hero-portrait-fallback">MT</div>
           )}
