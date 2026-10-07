@@ -22,7 +22,7 @@ const dict = {
       eyebrow: "About",
       text: "I'm Medin — an engineer who turns *complex requirements* into products that feel simple. Years across .NET, React and Azure taught me one thing: *great software is quiet.* It loads fast, scales calmly and simply works.",
       stats: [
-        { v: 20, s: "+", l: "Projects shipped" },
+        { v: 35, s: "+", l: "Projects shipped" },
         { v: 30, s: "+", l: "Technologies" },
         { v: 6, s: "+", l: "Years building" },
         { v: 2, s: "", l: "Azure certifications" },
@@ -77,7 +77,7 @@ const dict = {
     work_page: {
       eyebrow: "Archive",
       title: "All *projects*",
-      lead: "A slice of 20+ shipped products across web, cloud and mobile. Filter, then open any card.",
+      lead: "35+ shipped products across web, cloud and mobile. Filter, then open any card.",
       filters: { all: "All", web: "Web", mobile: "Mobile", cloud: "Cloud", landing: "Landing", game: "Game" },
       stackLabel: "Stack",
       visit: "Visit project",
@@ -110,7 +110,7 @@ const dict = {
       eyebrow: "Über mich",
       text: "Ich bin Medin — ein Entwickler, der *komplexe Anforderungen* in Produkte verwandelt, die sich einfach anfühlen. Jahre mit .NET, React und Azure haben mich eines gelehrt: *gute Software ist leise.* Sie lädt schnell, skaliert ruhig und funktioniert einfach.",
       stats: [
-        { v: 20, s: "+", l: "Projekte geliefert" },
+        { v: 35, s: "+", l: "Projekte geliefert" },
         { v: 30, s: "+", l: "Technologien" },
         { v: 6, s: "+", l: "Jahre Erfahrung" },
         { v: 2, s: "", l: "Azure-Zertifikate" },
@@ -165,7 +165,7 @@ const dict = {
     work_page: {
       eyebrow: "Archiv",
       title: "Alle *Projekte*",
-      lead: "Ein Ausschnitt aus 20+ ausgelieferten Produkten in Web, Cloud und Mobile. Filtern, dann Karte öffnen.",
+      lead: "35+ ausgelieferte Produkte in Web, Cloud und Mobile. Filtern, dann Karte öffnen.",
       filters: { all: "Alle", web: "Web", mobile: "Mobile", cloud: "Cloud", landing: "Landing", game: "Game" },
       stackLabel: "Stack",
       visit: "Projekt öffnen",
