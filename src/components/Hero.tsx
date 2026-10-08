@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useLang } from "../i18n";
 import { EASE, useIntroDone, useLocalTime } from "../lib/motion";
@@ -9,12 +9,25 @@ import { Roll, SplitReveal } from "./fx/Text";
 
 const NAME = "Medin Turkes";
 
+/* One masked line of the headline; rises into place after the preloader. */
+function HeadLine({ children, delay, ready, className }: { children: React.ReactNode; delay: number; ready: boolean; className?: string }) {
+  return (
+    <span className={`hero-head-line ${className ?? ""}`}>
+      <motion.span className="hero-head-in"
+        initial={{ y: "110%" }} animate={ready ? { y: "0%" } : { y: "110%" }}
+        transition={{ duration: 1.2, ease: EASE, delay }}>
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
 export default function Hero() {
   const { t } = useLang();
   const ready = useIntroDone();
   const time = useLocalTime();
-  const [photoFail, setPhotoFail] = useState(false);
-  const [role, setRole] = useState(0);
+  const [word, setWord] = useState(0);
+  const words = t.hero.headWords;
 
   /* The hero is sticky; the next section slides over it. Progress runs
      0 → 1 across the first viewport of scroll. */
@@ -24,41 +37,19 @@ export default function Hero() {
   const innerScale = useTransform(smooth, [0, 1], [1, 0.9]);
   const innerY = useTransform(smooth, [0, 1], ["0vh", "-8vh"]);
   const innerOpacity = useTransform(smooth, [0, 0.85], [1, 0.15]);
-  const portraitY = useTransform(smooth, [0, 1], ["0%", "-14%"]);
   const nameSpread = useTransform(smooth, [0, 1], ["-0.055em", "0.02em"]);
   const fade = useTransform(progress, [0, 1], [1, 0.25]);
 
   /* Once the next section fully covers the hero, stop painting it (and its
      shader) so scrolling the rest of the page costs nothing extra. */
-  const section = useRef<HTMLElement>(null);
   const [covered, setCovered] = useState(false);
   useMotionValueEvent(progress, "change", (v) => setCovered(v >= 1));
 
-  /* The portrait lives in the band between the meta row and the name, so
-     it never runs underneath the headline at any viewport size. */
-  const meta = useRef<HTMLDivElement>(null);
-  const name = useRef<HTMLHeadingElement>(null);
-  useLayoutEffect(() => {
-    const fit = () => {
-      const el = section.current, m = meta.current, n = name.current;
-      if (!el || !m || !n) return;
-      const top = m.offsetTop + m.offsetHeight + 16;
-      const bottom = n.offsetTop - 4;
-      el.style.setProperty("--p-top", `${top}px`);
-      el.style.setProperty("--p-h", `${Math.max(0, bottom - top)}px`);
-    };
-    fit();
-    const ro = new ResizeObserver(fit);
-    if (section.current) ro.observe(section.current);
-    if (name.current) ro.observe(name.current);
-    return () => ro.disconnect();
-  }, []);
-
   useEffect(() => {
     if (!ready) return;
-    const id = window.setInterval(() => setRole((r) => (r + 1) % t.hero.roles.length), 2400);
+    const id = window.setInterval(() => setWord((w) => (w + 1) % words.length), 2600);
     return () => window.clearInterval(id);
-  }, [ready, t.hero.roles.length]);
+  }, [ready, words.length]);
 
   const show = ready ? "show" : "hidden";
   const fadeUp = (delay: number) => ({
@@ -68,60 +59,51 @@ export default function Hero() {
   });
 
   return (
-    <section className={`hero${covered ? " is-covered" : ""}`} id="top" ref={section}>
+    <section className={`hero${covered ? " is-covered" : ""}`} id="top">
       <div className="hero-bg">
         <ShaderCanvas fade={fade} paused={covered} />
         <motion.div className="hero-bg-veil" initial={{ opacity: 1 }} animate={{ opacity: ready ? 0 : 1 }} transition={{ duration: 2.2, ease: EASE }} />
       </div>
-      {/* Outside .hero-inner so "lighten" blends the photo's black backdrop into the shader. */}
-      <motion.div className="hero-portrait"
-        style={{ y: portraitY, opacity: innerOpacity }}>
-        <motion.div className="hero-portrait-in"
-          initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.15 }}
-          animate={ready ? { clipPath: "inset(0% 0% 0% 0%)", scale: 1 } : {}}
-          transition={{ duration: 1.6, ease: EASE, delay: 0.15 }}>
-          {!photoFail ? (
-            <img src={`${import.meta.env.BASE_URL}images/profile.png`} alt="Medin Turkes"
-              onError={() => setPhotoFail(true)} {...{ fetchpriority: "high" }} />
-          ) : (
-            <div className="hero-portrait-fallback">MT</div>
-          )}
-        </motion.div>
-      </motion.div>
       <div className="grain" aria-hidden />
 
       <motion.div className="hero-inner" style={{ scale: innerScale, y: innerY, opacity: innerOpacity }}>
-        <div className="hero-meta mono" ref={meta}>
+        <div className="hero-meta mono">
           <motion.span {...fadeUp(0.5)}>{t.hero.kicker}</motion.span>
           <motion.span {...fadeUp(0.58)} className="hero-meta-mid">{t.hero.based} <b>· {time}</b></motion.span>
           <motion.span {...fadeUp(0.66)} className="hero-meta-end"><i className="pulse" aria-hidden />{t.hero.available}</motion.span>
         </div>
 
+        <p className="hero-head" aria-label={`${t.hero.headPre} ${words.join(", ")} ${t.hero.headPost}`}>
+          <HeadLine ready={ready} delay={0.2}>{t.hero.headPre}</HeadLine>
+          <HeadLine ready={ready} delay={0.3} className="hero-head-word">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.em key={word} className="serif"
+                initial={{ y: "105%", opacity: 0 }} animate={{ y: "0%", opacity: 1 }} exit={{ y: "-105%", opacity: 0 }}
+                transition={{ duration: 0.65, ease: EASE }}>
+                {words[word]}
+              </motion.em>
+            </AnimatePresence>
+          </HeadLine>
+          <HeadLine ready={ready} delay={0.4}>{t.hero.headPost}</HeadLine>
+        </p>
+
         <div className="hero-mid">
           <div className="hero-statement">
-            <SplitReveal as="p" text={t.hero.statement} play={ready} delay={0.55} stagger={0.018} duration={0.9} />
-            <motion.div className="hero-ctas" {...fadeUp(1.05)}>
-              <Magnetic>
-                <a href="#work" className="btn btn-light" onClick={(e) => { e.preventDefault(); scrollToTarget("#work"); }}>
-                  <Roll>{t.hero.viewWork}</Roll><span className="btn-arrow" aria-hidden>↘</span>
-                </a>
-              </Magnetic>
-              <a href="#contact" className="link-line" onClick={(e) => { e.preventDefault(); scrollToTarget("#contact"); }}>
-                <Roll>{t.hero.talk}</Roll>
-              </a>
-            </motion.div>
+            <SplitReveal as="p" text={t.hero.statement} play={ready} delay={0.7} stagger={0.016} duration={0.9} />
           </div>
-
-          <motion.ul className="hero-roles mono" {...fadeUp(0.8)} aria-label="Services">
-            {t.hero.roles.map((r, i) => (
-              <li key={r} className={i === role ? "on" : ""}>
-                <span className="hero-roles-idx">0{i + 1}</span>{r}
-              </li>
-            ))}
-          </motion.ul>
+          <motion.div className="hero-ctas" {...fadeUp(1.05)}>
+            <Magnetic>
+              <a href="#work" className="btn btn-light" onClick={(e) => { e.preventDefault(); scrollToTarget("#work"); }}>
+                <Roll>{t.hero.viewWork}</Roll><span className="btn-arrow" aria-hidden>↘</span>
+              </a>
+            </Magnetic>
+            <a href="#contact" className="link-line" onClick={(e) => { e.preventDefault(); scrollToTarget("#contact"); }}>
+              <Roll>{t.hero.talk}</Roll>
+            </a>
+          </motion.div>
         </div>
 
-        <motion.h1 className="hero-name" ref={name} aria-label={NAME} style={{ letterSpacing: nameSpread }}
+        <motion.h1 className="hero-name" aria-label={NAME} style={{ letterSpacing: nameSpread }}
           initial="hidden" animate={show}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.045, delayChildren: 0.25 } } }}>
           {NAME.split("").map((ch, i) => (
@@ -138,14 +120,6 @@ export default function Hero() {
           <motion.button className="hero-scroll" onClick={() => scrollToTarget(window.innerHeight)} {...fadeUp(1.3)}>
             <span className="hero-scroll-line" aria-hidden><i /></span>{t.hero.scroll}
           </motion.button>
-          <motion.span className="hero-foot-role" {...fadeUp(1.35)}>
-            <AnimatePresence mode="wait">
-              <motion.span key={role} initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }} transition={{ duration: 0.5, ease: EASE }}>
-                {t.hero.roles[role]}
-              </motion.span>
-            </AnimatePresence>
-          </motion.span>
           <motion.span {...fadeUp(1.4)}>{t.hero.folio} ©{new Date().getFullYear()}</motion.span>
         </div>
       </motion.div>
