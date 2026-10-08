@@ -9,15 +9,22 @@ const CERTS = [
     code: "AZ-204",
     title: "Developing Solutions for Microsoft Azure",
     level: "Associate",
-    img: "AZ-204.jpg",
+    img: "AZ-204.png",
     link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/B75568EF6554FF05?sharingId=2FC7333E7C13C43F",
   },
   {
     code: "AZ-400",
     title: "DevOps Engineer Expert",
     level: "Expert",
-    img: "AZ-400.jpg",
+    img: "AZ-400.png",
     link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/F1DF60653B363978?sharingId=2FC7333E7C13C43F",
+  },
+  {
+    code: "AI-901",
+    title: "Azure AI Fundamentals",
+    level: "Fundamentals",
+    img: "AI-901.png",
+    link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/46DC706FE2883F3F?sharingId=2FC7333E7C13C43F",
   },
 ];
 
