@@ -8,7 +8,7 @@ import ProjImage from "./ProjImage";
 import Magnetic from "./fx/Magnetic";
 import { Eyebrow, Roll, SplitReveal } from "./fx/Text";
 
-const CURATED = ["teretnjaci", "gentle-suite", "skinbloom", "vip-shuttle", "tm-app"];
+const CURATED = ["teretnjaci", "starfall-grove", "daily-gourmet", "skinbloom", "bco-solutions"];
 
 function WorkCard({ p, i, total, progress }: { p: Project; i: number; total: number; progress?: MotionValue<number> }) {
   const { lang, t } = useLang();
