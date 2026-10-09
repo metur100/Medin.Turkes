@@ -437,28 +437,6 @@ export const PROJECTS: Project[] = [
     image: "income-calculator.jpg", link: "https://metur100.github.io/Income.Calculator/",
   },
   {
-    id: "azure-study", initials: "AS", name: "Azure Certificate Study", group: "web",
-    tagline: { en: "Exam Trainer with Spaced Repetition", de: "Prüfungstrainer mit Spaced Repetition" },
-    category: { en: "Web App · Learning", de: "Web-App · Lernen" },
-    description: {
-      en: "The study tool behind my own Azure certifications: learn mode, an Anki-style review queue, timed mock exams with answer review and a question browser for AZ-204, AZ-400, AI-901 and more. Single and multiple choice, hotspot and yes/no grids, with question banks built offline by OCR and document-extraction scripts.",
-      de: "Das Lernwerkzeug hinter meinen eigenen Azure-Zertifizierungen: Lernmodus, eine Wiederholungs-Queue nach Anki-Prinzip, zeitgesteuerte Probeprüfungen mit Auswertung und ein Fragen-Browser für AZ-204, AZ-400, AI-901 und mehr. Single- und Multiple-Choice, Hotspot- und Ja/Nein-Raster, mit Fragenkatalogen, die offline per OCR und Dokument-Extraktion erzeugt wurden.",
-    },
-    stack: ["React", "TypeScript", "Vite", "React Router", "tesseract.js", "GitHub Actions"],
-    image: "azure-study.jpg", link: "https://metur100.github.io/Learning.App/",
-  },
-  {
-    id: "pcc", initials: "PC", name: "Personal Command Center", group: "web",
-    tagline: { en: "Tasks, Notes & Microsoft 365 in One Place", de: "Aufgaben, Notizen & Microsoft 365 an einem Ort" },
-    category: { en: "Web · API", de: "Web · API" },
-    description: {
-      en: "A personal productivity dashboard for tasks, projects, notes and quick capture, with calendar and mail data pulled in from Microsoft 365. An ASP.NET Core API on Dapper and SQL Server stored procedures calls Microsoft Graph through Entra ID behind a lightweight static frontend.",
-      de: "Ein persönliches Produktivitäts-Dashboard für Aufgaben, Projekte, Notizen und Schnellerfassung, mit Kalender- und Maildaten aus Microsoft 365. Eine ASP.NET-Core-API auf Dapper und SQL-Server-Prozeduren ruft Microsoft Graph über Entra ID auf, davor ein schlankes statisches Frontend.",
-    },
-    stack: ["ASP.NET Core 8", "C#", "Dapper", "MS SQL", "Microsoft Graph", "Entra ID"],
-    image: "pcc.jpg", link: null,
-  },
-  {
     id: "bco-solutions", initials: "BC", name: "BCO Solutions", group: "landing",
     tagline: { en: "Private Chauffeur Service, Munich", de: "Privater Chauffeurservice, München" },
     category: { en: "Landing Page", de: "Landingpage" },
