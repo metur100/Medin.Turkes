@@ -18,6 +18,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ProjectsPage from "./pages/ProjectsPage";
 import CertificationsPage from "./pages/CertificationsPage";
+import SectionPage from "./pages/SectionPage";
 
 function Home() {
   return (
@@ -53,7 +54,7 @@ function Shell() {
         <motion.div key={route}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: EASE }}>
-          {route === "home" ? <Home /> : route === "projects" ? <ProjectsPage /> : <CertificationsPage />}
+          {route === "home" ? <Home /> : route === "projects" ? <ProjectsPage /> : route === "certifications" ? <CertificationsPage /> : <SectionPage route={route} />}
           <Footer />
         </motion.div>
       </AnimatePresence>

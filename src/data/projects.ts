@@ -283,6 +283,17 @@ export const PROJECTS: Project[] = [
     image: "tm.png", link: null,
   },
   {
+    id: "document-archive", initials: "DA", name: "RCS Document Archive", group: "cloud",
+    tagline: { en: "Audit-Proof Archiving on Azure", de: "Revisionssichere Archivierung auf Azure" },
+    category: { en: "Web · Cloud · Compliance", de: "Web · Cloud · Compliance" },
+    description: {
+      en: "Revision-safe archiving for RealCore: files from SharePoint, Microsoft 365 and Azure Blob are SHA-256 hashed, written to WORM storage, read back to verify and receipted as JSON and PDF. Auditors open a case, assemble a review basket and, once the data owner approves, get a time-limited, hash-verified copy kept apart from the archive. Role-based and isolated per organisation.",
+      de: "Revisionssichere Archivierung für RealCore: Dateien aus SharePoint, Microsoft 365 und Azure Blob werden per SHA-256 gehasht, in WORM-Speicher geschrieben, zur Prüfung zurückgelesen und als JSON- und PDF-Beleg quittiert. Prüfer eröffnen einen Fall, stellen einen Prüfkorb zusammen und erhalten nach Freigabe durch den Dateneigentümer eine zeitlich begrenzte, hash-geprüfte Kopie getrennt vom Archiv. Rollenbasiert und je Organisation isoliert.",
+    },
+    stack: ["React", "TypeScript", "ASP.NET Core", "EF Core", "Azure SQL", "Azure Blob WORM", "Entra ID"],
+    image: "document-archive.jpg", link: null,
+  },
+  {
     id: "starfall-grove", initials: "SG", name: "Starfall Grove", group: "game", featured: true,
     tagline: { en: "Storybook Action RPG", de: "Storybook-Action-RPG" },
     category: { en: "Game · PWA · iOS", de: "Game · PWA · iOS" },
@@ -303,6 +314,50 @@ export const PROJECTS: Project[] = [
     },
     stack: ["React", "TypeScript", "Canvas 2D", "SignalR", ".NET"],
     image: "mini-rift.jpg", link: "https://metur100.github.io/Starfall.Grove.Moba.UI/",
+  },
+  {
+    id: "dont-touch-that", initials: "DT", name: "Don't Touch That!", group: "game",
+    tagline: { en: "Reaction & Trick Puzzle Game", de: "Reaktions- & Trick-Puzzlespiel" },
+    category: { en: "Game · Android · iOS", de: "Game · Android · iOS" },
+    description: {
+      en: "Every level says what not to do, then tries everything to make you do it. 100 hand-made levels in 10 chapters, a procedurally generated Endless mode with boss rounds, and a date-seeded Daily mode. Fully offline: no ads, no accounts, no backend, with haptics, sensors and synthesized sound.",
+      de: "Jedes Level sagt, was du nicht tun sollst, und versucht dann alles, damit du es doch tust. 100 handgebaute Level in 10 Kapiteln, ein prozedural erzeugter Endlos-Modus mit Boss-Runden und ein täglicher Modus nach Datum. Komplett offline: keine Werbung, keine Konten, kein Backend, mit Haptik, Sensoren und synthetisiertem Sound.",
+    },
+    stack: ["Expo", "React Native", "TypeScript", "Expo Router", "Reanimated", "Zustand", "Jest"],
+    image: "dont-touch-that.jpg", link: "https://metur100.github.io/Dont.Touch.That.Landing/",
+  },
+  {
+    id: "magnet-mail", initials: "MM", name: "Magnet Mail", group: "game",
+    tagline: { en: "Magnetic Physics Puzzle Game", de: "Magnetisches Physik-Puzzlespiel" },
+    category: { en: "Game · Android · iOS", de: "Game · Android · iOS" },
+    description: {
+      en: "Deliver parcels without ever touching them: attract and repel to fling each one past trains, gears and wormholes into the mailbox. 30 levels and a daily challenge on a custom deterministic physics engine, with a beam-search solver that proves every level is solvable.",
+      de: "Pakete zustellen, ohne sie je zu berühren: anziehen und abstoßen, um jedes an Zügen, Zahnrädern und Wurmlöchern vorbei in den Briefkasten zu befördern. 30 Level und eine tägliche Herausforderung auf einer eigenen deterministischen Physik-Engine, mit einem Beam-Search-Solver, der jedes Level als lösbar beweist.",
+    },
+    stack: ["TypeScript", "Phaser 3", "Vite", "Capacitor", "Vitest", "Playwright"],
+    image: "magnet-mail.jpg", link: "https://metur100.github.io/Magnet.Mail.Landing/",
+  },
+  {
+    id: "wind-sculptor", initials: "WS", name: "Wind Sculptor", group: "game",
+    tagline: { en: "Calm Physics Puzzle Game", de: "Entspanntes Physik-Puzzlespiel" },
+    category: { en: "Game · Android · iOS", de: "Game · Android · iOS" },
+    description: {
+      en: "Swipe to make wind and blow drifting sand, leaves, snow and fireflies into a target shape before time runs out. 30 levels across several worlds, a daily challenge and a collection, all drawn and synthesized in code, with an auto-player that verifies every level can be beaten.",
+      de: "Wischen erzeugt Wind, der Sand, Blätter, Schnee und Glühwürmchen in eine Zielform treibt, bevor die Zeit abläuft. 30 Level in mehreren Welten, eine tägliche Herausforderung und eine Sammlung, alles im Code gezeichnet und vertont, mit einem Auto-Player, der jedes Level als schaffbar prüft.",
+    },
+    stack: ["TypeScript", "Phaser 3", "Vite", "Capacitor", "Vitest", "Playwright"],
+    image: "wind-sculptor.jpg", link: "https://metur100.github.io/Wind.Sculptor.Landing/",
+  },
+  {
+    id: "goblin-janitor", initials: "GJ", name: "Goblin Janitor", group: "game",
+    tagline: { en: "Turn-Based Dungeon Cleanup Puzzle", de: "Rundenbasiertes Dungeon-Aufräum-Puzzle" },
+    category: { en: "Browser Game", de: "Browser-Game" },
+    description: {
+      en: "The heroes have left and somebody has to clean up. Twelve hand-built rooms: mop slime, sort loot into the right bins, disarm traps and find secret snacks, with move par, star ratings and undo. Offline-first, keyboard-playable and respectful of reduced motion.",
+      de: "Die Helden sind weg, jemand muss aufräumen. Zwölf handgebaute Räume: Schleim wischen, Beute in die richtigen Kisten sortieren, Fallen entschärfen und geheime Snacks finden, mit Zug-Par, Sternwertung und Rückgängig. Offline-first, per Tastatur spielbar und mit Rücksicht auf reduzierte Bewegung.",
+    },
+    stack: ["React", "TypeScript", "Vite", "LocalStorage"],
+    image: "goblin-janitor.jpg", link: null,
   },
   {
     id: "islam-apps", initials: "IA", name: "Islamic Learning Apps", group: "mobile", featured: true,
@@ -380,6 +435,28 @@ export const PROJECTS: Project[] = [
     },
     stack: ["React", "TypeScript", "LocalStorage"],
     image: "income-calculator.jpg", link: "https://metur100.github.io/Income.Calculator/",
+  },
+  {
+    id: "azure-study", initials: "AS", name: "Azure Certificate Study", group: "web",
+    tagline: { en: "Exam Trainer with Spaced Repetition", de: "Prüfungstrainer mit Spaced Repetition" },
+    category: { en: "Web App · Learning", de: "Web-App · Lernen" },
+    description: {
+      en: "The study tool behind my own Azure certifications: learn mode, an Anki-style review queue, timed mock exams with answer review and a question browser for AZ-204, AZ-400, AI-901 and more. Single and multiple choice, hotspot and yes/no grids, with question banks built offline by OCR and document-extraction scripts.",
+      de: "Das Lernwerkzeug hinter meinen eigenen Azure-Zertifizierungen: Lernmodus, eine Wiederholungs-Queue nach Anki-Prinzip, zeitgesteuerte Probeprüfungen mit Auswertung und ein Fragen-Browser für AZ-204, AZ-400, AI-901 und mehr. Single- und Multiple-Choice, Hotspot- und Ja/Nein-Raster, mit Fragenkatalogen, die offline per OCR und Dokument-Extraktion erzeugt wurden.",
+    },
+    stack: ["React", "TypeScript", "Vite", "React Router", "tesseract.js", "GitHub Actions"],
+    image: "azure-study.jpg", link: "https://metur100.github.io/Learning.App/",
+  },
+  {
+    id: "pcc", initials: "PC", name: "Personal Command Center", group: "web",
+    tagline: { en: "Tasks, Notes & Microsoft 365 in One Place", de: "Aufgaben, Notizen & Microsoft 365 an einem Ort" },
+    category: { en: "Web · API", de: "Web · API" },
+    description: {
+      en: "A personal productivity dashboard for tasks, projects, notes and quick capture, with calendar and mail data pulled in from Microsoft 365. An ASP.NET Core API on Dapper and SQL Server stored procedures calls Microsoft Graph through Entra ID behind a lightweight static frontend.",
+      de: "Ein persönliches Produktivitäts-Dashboard für Aufgaben, Projekte, Notizen und Schnellerfassung, mit Kalender- und Maildaten aus Microsoft 365. Eine ASP.NET-Core-API auf Dapper und SQL-Server-Prozeduren ruft Microsoft Graph über Entra ID auf, davor ein schlankes statisches Frontend.",
+    },
+    stack: ["ASP.NET Core 8", "C#", "Dapper", "MS SQL", "Microsoft Graph", "Entra ID"],
+    image: "pcc.jpg", link: null,
   },
   {
     id: "bco-solutions", initials: "BC", name: "BCO Solutions", group: "landing",

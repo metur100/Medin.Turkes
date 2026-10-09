@@ -5,7 +5,7 @@ export type Lang = "en" | "de";
 /* Words wrapped in *asterisks* are rendered in the italic serif accent. */
 const dict = {
   en: {
-    nav: { about: "About", focus: "Services", work: "Work", timeline: "Path", contact: "Contact", allProjects: "All Projects", certifications: "Certifications", home: "Home", talk: "Let's talk", menu: "Menu", close: "Close" },
+    nav: { about: "About", focus: "Services", work: "Work", timeline: "Path", contact: "Contact", allProjects: "All Projects", certifications: "Certifications", home: "Home", talk: "Let's talk", menu: "Menu", close: "Close", next: "Next" },
     loader: { label: "Loading portfolio" },
     hero: {
       kicker: "Full-Stack & Cloud Engineer",
@@ -24,7 +24,7 @@ const dict = {
       eyebrow: "About",
       text: "I'm Medin — an engineer who turns *complex requirements* into products that feel simple. Years across .NET, React and Azure taught me one thing: *great software is quiet.* It loads fast, scales calmly and simply works.",
       stats: [
-        { v: 35, s: "+", l: "Projects shipped" },
+        { v: 40, s: "+", l: "Projects shipped" },
         { v: 30, s: "+", l: "Technologies" },
         { v: 6, s: "+", l: "Years building" },
         { v: 3, s: "", l: "Azure certifications" },
@@ -79,7 +79,7 @@ const dict = {
     work_page: {
       eyebrow: "Archive",
       title: "All *projects*",
-      lead: "35+ shipped products across web, cloud and mobile. Filter, then open any card.",
+      lead: "40+ shipped products across web, cloud and mobile. Filter, then open any card.",
       filters: { all: "All", web: "Web", mobile: "Mobile", cloud: "Cloud", landing: "Landing", game: "Game" },
       stackLabel: "Stack",
       visit: "Visit project",
@@ -95,7 +95,7 @@ const dict = {
     },
   },
   de: {
-    nav: { about: "Über mich", focus: "Leistungen", work: "Projekte", timeline: "Pfad", contact: "Kontakt", allProjects: "Alle Projekte", certifications: "Zertifikate", home: "Start", talk: "Kontakt", menu: "Menü", close: "Schließen" },
+    nav: { about: "Über mich", focus: "Leistungen", work: "Projekte", timeline: "Pfad", contact: "Kontakt", allProjects: "Alle Projekte", certifications: "Zertifikate", home: "Start", talk: "Kontakt", menu: "Menü", close: "Schließen", next: "Weiter" },
     loader: { label: "Portfolio wird geladen" },
     hero: {
       kicker: "Full-Stack- & Cloud-Entwickler",
@@ -114,7 +114,7 @@ const dict = {
       eyebrow: "Über mich",
       text: "Ich bin Medin — ein Entwickler, der *komplexe Anforderungen* in Produkte verwandelt, die sich einfach anfühlen. Jahre mit .NET, React und Azure haben mich eines gelehrt: *gute Software ist leise.* Sie lädt schnell, skaliert ruhig und funktioniert einfach.",
       stats: [
-        { v: 35, s: "+", l: "Projekte geliefert" },
+        { v: 40, s: "+", l: "Projekte geliefert" },
         { v: 30, s: "+", l: "Technologien" },
         { v: 6, s: "+", l: "Jahre Erfahrung" },
         { v: 3, s: "", l: "Azure-Zertifikate" },
@@ -169,7 +169,7 @@ const dict = {
     work_page: {
       eyebrow: "Archiv",
       title: "Alle *Projekte*",
-      lead: "35+ ausgelieferte Produkte in Web, Cloud und Mobile. Filtern, dann Karte öffnen.",
+      lead: "40+ ausgelieferte Produkte in Web, Cloud und Mobile. Filtern, dann Karte öffnen.",
       filters: { all: "Alle", web: "Web", mobile: "Mobile", cloud: "Cloud", landing: "Landing", game: "Game" },
       stackLabel: "Stack",
       visit: "Projekt öffnen",

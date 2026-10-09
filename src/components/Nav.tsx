@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 import { useLang, Lang } from "../i18n";
-import { navTo, useRoute } from "../router";
+import { navTo, Route, useRoute } from "../router";
 import { EASE, EASE_IN_OUT, useIntroDone } from "../lib/motion";
 import { lockScroll, scrollToTarget } from "../lib/scroll";
 import Magnetic from "./fx/Magnetic";
@@ -31,33 +31,25 @@ export default function Nav() {
   }, [open]);
   useEffect(() => { setOpen(false); }, [route]);
 
-  const sections: [string, string][] = [
+  const pages: [Route, string][] = [
     ["about", t.nav.about],
-    ["focus", t.nav.focus],
+    ["services", t.nav.focus],
     ["work", t.nav.work],
-    ["timeline", t.nav.timeline],
+    ["path", t.nav.timeline],
+    ["projects", t.nav.allProjects],
+    ["certifications", t.nav.certifications],
   ];
 
-  const goSection = (id: string) => {
+  const goPage = (r: Route) => {
     setOpen(false);
-    if (route !== "home") {
-      navTo("home");
-      window.setTimeout(() => scrollToTarget(`#${id}`), 120);
-    } else {
-      window.setTimeout(() => scrollToTarget(`#${id}`), open ? 450 : 0);
-    }
-  };
-  const goPage = (r: "home" | "projects" | "certifications") => {
-    setOpen(false);
-    if (r === "home" && route === "home") scrollToTarget(0);
+    if (r === route) scrollToTarget(0);
     else navTo(r);
   };
 
   const menuLinks: { label: string; act: () => void }[] = [
-    ...sections.map(([id, label]) => ({ label, act: () => goSection(id) })),
-    { label: t.nav.contact, act: () => goSection("contact") },
-    { label: t.nav.allProjects, act: () => goPage("projects") },
-    { label: t.nav.certifications, act: () => goPage("certifications") },
+    ...pages.slice(0, 4).map(([r, label]) => ({ label, act: () => goPage(r) })),
+    { label: t.nav.contact, act: () => goPage("contact") },
+    ...pages.slice(4).map(([r, label]) => ({ label, act: () => goPage(r) })),
   ];
 
   return (
@@ -74,13 +66,10 @@ export default function Nav() {
         </a>
 
         <nav className="nav-links" aria-label="Primary">
-          {sections.map(([id, label]) => (
-            <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); goSection(id); }}><Roll>{label}</Roll></a>
+          {pages.map(([r, label]) => (
+            <a key={r} href={`#/${r}`} className={route === r ? "is-active" : ""} aria-current={route === r ? "page" : undefined}
+              onClick={(e) => { e.preventDefault(); goPage(r); }}><Roll>{label}</Roll></a>
           ))}
-          <a href="#/projects" className={route === "projects" ? "is-active" : ""}
-            onClick={(e) => { e.preventDefault(); goPage("projects"); }}><Roll>{t.nav.allProjects}</Roll></a>
-          <a href="#/certifications" className={route === "certifications" ? "is-active" : ""}
-            onClick={(e) => { e.preventDefault(); goPage("certifications"); }}><Roll>{t.nav.certifications}</Roll></a>
         </nav>
 
         <div className="nav-right">
@@ -92,7 +81,7 @@ export default function Nav() {
             ))}
           </div>
           <Magnetic strength={0.25} className="nav-cta-wrap">
-            <a href="#contact" className="nav-cta" onClick={(e) => { e.preventDefault(); goSection("contact"); }}>
+            <a href="#/contact" className="nav-cta" onClick={(e) => { e.preventDefault(); goPage("contact"); }}>
               <i className="pulse" aria-hidden /><Roll>{t.nav.talk}</Roll>
             </a>
           </Magnetic>

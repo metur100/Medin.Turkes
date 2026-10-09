@@ -28,7 +28,10 @@ export default function ProjectModal({ project, onClose }: { project: Project | 
             exit={{ opacity: 0, y: 40 }} transition={{ duration: 0.7, ease: EASE }}
             onClick={(e) => e.stopPropagation()}>
             <div className="modal-hero">
-              <motion.img src={`${import.meta.env.BASE_URL}images/${project.image}`} alt={project.name}
+              <span className="proj-fallback" aria-hidden>{project.initials}</span>
+              <img className="modal-hero-bg" src={`${import.meta.env.BASE_URL}images/${project.image}`} alt="" aria-hidden
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+              <motion.img className="modal-hero-img" src={`${import.meta.env.BASE_URL}images/${project.image}`} alt={project.name}
                 initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 1.2, ease: EASE }}
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
               <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>

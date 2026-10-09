@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useLang } from "../i18n";
 import { EASE } from "../lib/motion";
-import ShaderCanvas from "./fx/ShaderCanvas";
+import DotField from "./fx/DotField";
 import Magnetic from "./fx/Magnetic";
 import { Eyebrow, Roll, SplitReveal } from "./fx/Text";
 
@@ -11,7 +11,7 @@ export default function Contact() {
 
   return (
     <section className="contact" id="contact">
-      <div className="contact-bg"><ShaderCanvas accent={0.8} /></div>
+      <div className="contact-bg"><DotField gap={30} /><div className="contact-glow" aria-hidden /></div>
       <div className="grain" aria-hidden />
 
       <div className="wrap contact-in">

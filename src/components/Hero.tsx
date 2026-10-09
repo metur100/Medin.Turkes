@@ -3,11 +3,18 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, use
 import { useLang } from "../i18n";
 import { EASE, useIntroDone, useLocalTime } from "../lib/motion";
 import { scrollToTarget } from "../lib/scroll";
-import ShaderCanvas from "./fx/ShaderCanvas";
+import { PROJECTS } from "../data/projects";
+import { navTo } from "../router";
+import DotField from "./fx/DotField";
 import Magnetic from "./fx/Magnetic";
 import { Roll, SplitReveal } from "./fx/Text";
+import ProjImage from "./ProjImage";
 
 const NAME = "Medin Turkes";
+
+/* One real project per headline word, in the same order as t.hero.headWords. */
+const SHOWCASE = ["daily-gourmet", "teretnjaci", "bco-solutions", "azure-apim"]
+  .map((id) => PROJECTS.find((p) => p.id === id)!);
 
 /* One masked line of the headline; rises into place after the preloader. */
 function HeadLine({ children, delay, ready, className }: { children: React.ReactNode; delay: number; ready: boolean; className?: string }) {
@@ -23,11 +30,12 @@ function HeadLine({ children, delay, ready, className }: { children: React.React
 }
 
 export default function Hero() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const ready = useIntroDone();
   const time = useLocalTime();
   const [word, setWord] = useState(0);
   const words = t.hero.headWords;
+  const shown = SHOWCASE[word % SHOWCASE.length];
 
   /* The hero is sticky; the next section slides over it. Progress runs
      0 → 1 across the first viewport of scroll. */
@@ -61,7 +69,8 @@ export default function Hero() {
   return (
     <section className={`hero${covered ? " is-covered" : ""}`} id="top">
       <div className="hero-bg">
-        <ShaderCanvas fade={fade} paused={covered} />
+        <DotField fade={fade} paused={covered} />
+        <div className="hero-glow" aria-hidden />
         <motion.div className="hero-bg-veil" initial={{ opacity: 1 }} animate={{ opacity: ready ? 0 : 1 }} transition={{ duration: 2.2, ease: EASE }} />
       </div>
       <div className="grain" aria-hidden />
@@ -73,19 +82,47 @@ export default function Hero() {
           <motion.span {...fadeUp(0.66)} className="hero-meta-end"><i className="pulse" aria-hidden />{t.hero.available}</motion.span>
         </div>
 
-        <p className="hero-head" aria-label={`${t.hero.headPre} ${words.join(", ")} ${t.hero.headPost}`}>
-          <HeadLine ready={ready} delay={0.2}>{t.hero.headPre}</HeadLine>
-          <HeadLine ready={ready} delay={0.3} className="hero-head-word">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.em key={word} className="serif"
-                initial={{ y: "105%", opacity: 0 }} animate={{ y: "0%", opacity: 1 }} exit={{ y: "-105%", opacity: 0 }}
-                transition={{ duration: 0.65, ease: EASE }}>
-                {words[word]}
-              </motion.em>
-            </AnimatePresence>
-          </HeadLine>
-          <HeadLine ready={ready} delay={0.4}>{t.hero.headPost}</HeadLine>
-        </p>
+        <div className="hero-stage">
+          <p className="hero-head" aria-label={`${t.hero.headPre} ${words.join(", ")} ${t.hero.headPost}`}>
+            <HeadLine ready={ready} delay={0.2}>{t.hero.headPre}</HeadLine>
+            <HeadLine ready={ready} delay={0.3} className="hero-head-word">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.em key={word} className="serif"
+                  initial={{ y: "105%", opacity: 0 }} animate={{ y: "0%", opacity: 1 }} exit={{ y: "-105%", opacity: 0 }}
+                  transition={{ duration: 0.65, ease: EASE }}>
+                  {words[word]}
+                </motion.em>
+              </AnimatePresence>
+            </HeadLine>
+            <HeadLine ready={ready} delay={0.4}>{t.hero.headPost}</HeadLine>
+          </p>
+
+          {/* A live example of the current word: the preview swaps in step with the headline. */}
+          <motion.a href="#/projects" className="hero-show" data-cursor={t.nav.allProjects}
+            onClick={(e) => { e.preventDefault(); navTo("projects"); }}
+            initial={{ opacity: 0, y: 30, rotate: 2 }} animate={ready ? { opacity: 1, y: 0, rotate: 0 } : {}}
+            transition={{ duration: 1.2, ease: EASE, delay: 0.8 }}>
+            <span className="hero-show-frame">
+              <AnimatePresence initial={false}>
+                <motion.span key={word} className="hero-show-img"
+                  initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.12 }}
+                  animate={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
+                  exit={{ opacity: 0, transition: { duration: 0.4, delay: 0.5 } }}
+                  transition={{ duration: 0.9, ease: EASE }}>
+                  <ProjImage src={shown.image} initials={shown.initials} alt={shown.name} />
+                </motion.span>
+              </AnimatePresence>
+              <span className="hero-show-idx mono">{String((word % SHOWCASE.length) + 1).padStart(2, "0")} / {String(SHOWCASE.length).padStart(2, "0")}</span>
+            </span>
+            <span className="hero-show-cap">
+              <span>
+                <span className="hero-show-name">{shown.name}</span>
+                <span className="hero-show-tag mono">{shown.tagline[lang]}</span>
+              </span>
+              <span className="hero-show-arrow" aria-hidden>↗</span>
+            </span>
+          </motion.a>
+        </div>
 
         <div className="hero-mid">
           <div className="hero-statement">

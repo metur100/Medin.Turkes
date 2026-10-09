@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-export type Route = "home" | "projects" | "certifications";
+export const SECTION_ROUTES = ["about", "services", "work", "path", "contact"] as const;
+export type SectionRoute = (typeof SECTION_ROUTES)[number];
+export type Route = "home" | "projects" | "certifications" | SectionRoute;
+
+const ROUTES: Route[] = ["projects", "certifications", ...SECTION_ROUTES];
 
 function parseHash(): Route {
   const h = (window.location.hash || "").replace(/^#\/?/, "");
-  if (h.startsWith("projects")) return "projects";
-  if (h.startsWith("certifications")) return "certifications";
-  return "home";
+  return ROUTES.find((r) => h === r || h.startsWith(`${r}/`)) ?? "home";
 }
 
 export function useRoute() {

@@ -14,7 +14,10 @@ export default function Footer() {
   const y = useTransform(scrollYProgress, [0, 1], ["-35%", "0%"]);
   const nameY = useTransform(scrollYProgress, [0.2, 1], ["60%", "0%"]);
 
-  const pages: [Route, string][] = [["home", t.nav.home], ["projects", t.nav.allProjects], ["certifications", t.nav.certifications]];
+  const pages: [Route, string][] = [
+    ["home", t.nav.home], ["about", t.nav.about], ["services", t.nav.focus], ["work", t.nav.work],
+    ["path", t.nav.timeline], ["contact", t.nav.contact], ["projects", t.nav.allProjects], ["certifications", t.nav.certifications],
+  ];
   const socials = t.contact.links.filter((l) => l.href?.startsWith("http"));
 
   return (
