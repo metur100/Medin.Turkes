@@ -1,0 +1,14 @@
+{
+  "name": "Medin Turkes — Full-Stack & Cloud Engineer",
+  "short_name": "Medin Turkes",
+  "description": "Web apps, mobile apps, landing pages and Azure infrastructure — built in Düsseldorf.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070809",
+  "theme_color": "#070809",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
