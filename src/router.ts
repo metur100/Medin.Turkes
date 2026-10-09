@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 
-export const SECTION_ROUTES = ["about", "services", "work", "path", "contact"] as const;
+export const SECTION_ROUTES = ["about", "services", "path", "contact"] as const;
 export type SectionRoute = (typeof SECTION_ROUTES)[number];
 export type Route = "home" | "projects" | "certifications" | SectionRoute;
 
 const ROUTES: Route[] = ["projects", "certifications", ...SECTION_ROUTES];
+/* old links to the former Work page land on the project archive */
+const ALIASES: Record<string, Route> = { work: "projects" };
 
 function parseHash(): Route {
   const h = (window.location.hash || "").replace(/^#\/?/, "");
-  return ROUTES.find((r) => h === r || h.startsWith(`${r}/`)) ?? "home";
+  const key = h.split("/")[0];
+  return ALIASES[key] ?? ROUTES.find((r) => key === r) ?? "home";
 }
 
 export function useRoute() {

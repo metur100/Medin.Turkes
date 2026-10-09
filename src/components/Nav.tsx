@@ -34,9 +34,8 @@ export default function Nav() {
   const pages: [Route, string][] = [
     ["about", t.nav.about],
     ["services", t.nav.focus],
-    ["work", t.nav.work],
+    ["projects", t.nav.work],
     ["path", t.nav.timeline],
-    ["projects", t.nav.allProjects],
     ["certifications", t.nav.certifications],
   ];
 
