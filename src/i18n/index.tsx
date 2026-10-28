@@ -27,7 +27,7 @@ const dict = {
         { v: 40, s: "+", l: "Projects shipped" },
         { v: 30, s: "+", l: "Technologies" },
         { v: 6, s: "+", l: "Years building" },
-        { v: 3, s: "", l: "Azure certifications" },
+        { v: 4, s: "", l: "Azure certifications" },
       ],
     },
     focus: {
@@ -89,7 +89,7 @@ const dict = {
     certs: {
       eyebrow: "Credentials",
       title: "Azure *certifications*",
-      lead: "Three certifications — verifiable via Microsoft Learn.",
+      lead: "Four certifications — verifiable via Microsoft Learn.",
       verify: "Verify credential",
       back: "Back",
     },
@@ -117,7 +117,7 @@ const dict = {
         { v: 40, s: "+", l: "Projekte geliefert" },
         { v: 30, s: "+", l: "Technologien" },
         { v: 6, s: "+", l: "Jahre Erfahrung" },
-        { v: 3, s: "", l: "Azure-Zertifikate" },
+        { v: 4, s: "", l: "Azure-Zertifikate" },
       ],
     },
     focus: {
@@ -179,7 +179,7 @@ const dict = {
     certs: {
       eyebrow: "Nachweise",
       title: "Azure-*Zertifikate*",
-      lead: "Drei Zertifikate — verifizierbar über Microsoft Learn.",
+      lead: "Vier Zertifikate — verifizierbar über Microsoft Learn.",
       verify: "Nachweis prüfen",
       back: "Zurück",
     },

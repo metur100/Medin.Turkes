@@ -20,6 +20,13 @@ const CERTS = [
     link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/F1DF60653B363978?sharingId=2FC7333E7C13C43F",
   },
   {
+    code: "AI-103",
+    title: "Developing AI Apps and Agents on Azure",
+    level: "Associate",
+    img: "AI-103.png",
+    link: "https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-103/",
+  },
+  {
     code: "AI-901",
     title: "Azure AI Fundamentals",
     level: "Fundamentals",
