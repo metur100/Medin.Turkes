@@ -24,7 +24,7 @@ const CERTS = [
     title: "Developing AI Apps and Agents on Azure",
     level: "Associate",
     img: "AI-103.svg",
-    link: "https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-103/",
+    link: "https://learn.microsoft.com/api/credentials/share/en-us/MedinTurkes/EA0D63300514A7B9?sharingId=2FC7333E7C13C43F",
   },
   {
     code: "AI-901",
