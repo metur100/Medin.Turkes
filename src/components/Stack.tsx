@@ -23,7 +23,7 @@ export default function Stack() {
   const { t } = useLang();
   return (
     <section className="stack" aria-label={t.stack.eyebrow}>
-      <div className="wrap"><Eyebrow index="05" label={t.stack.eyebrow} /></div>
+      <div className="wrap"><Eyebrow index="04" label={t.stack.eyebrow} /></div>
       <p className="sr-only">{[...ROW_A, ...ROW_B].join(", ")}</p>
       <Marquee speed={2.2}><Row items={ROW_A} /></Marquee>
       <Marquee speed={1.8} reverse><Row items={ROW_B} outline /></Marquee>

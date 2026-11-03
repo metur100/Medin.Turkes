@@ -10,9 +10,8 @@ import Cursor from "./components/fx/Cursor";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
-import Process from "./components/Process";
 import Focus from "./components/Focus";
-import SignatureWork from "./components/SignatureWork";
+import Showcase from "./components/Showcase";
 import Stack from "./components/Stack";
 import Timeline from "./components/Timeline";
 import Contact from "./components/Contact";
@@ -27,9 +26,8 @@ function Home() {
       <Hero />
       <div className="content">
         <About />
-        <Process />
         <Focus />
-        <SignatureWork />
+        <Showcase />
         <Stack />
         <Timeline />
         <Contact />

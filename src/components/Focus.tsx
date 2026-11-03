@@ -66,7 +66,7 @@ export default function Focus() {
     <section className="svc" id="focus">
       <div className="wrap">
         <div className="sec-head">
-          <Eyebrow index="03" label={s.eyebrow} />
+          <Eyebrow index="02" label={s.eyebrow} />
           <SplitReveal as="h2" className="sec-title" text={s.title} />
         </div>
 

@@ -15,7 +15,7 @@ export default function Timeline() {
     <section className="path" id="timeline">
       <div className="wrap">
         <div className="sec-head">
-          <Eyebrow index="06" label={s.eyebrow} />
+          <Eyebrow index="05" label={s.eyebrow} />
           <SplitReveal as="h2" className="sec-title" text={s.title} />
         </div>
 

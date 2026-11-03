@@ -4,6 +4,7 @@ import { useLang } from "../i18n";
 import { EASE, useIntroDone, useLocalTime } from "../lib/motion";
 import { scrollToTarget } from "../lib/scroll";
 import DotField from "./fx/DotField";
+import Liquid from "./fx/Liquid";
 import Magnetic from "./fx/Magnetic";
 import { Roll, SplitReveal } from "./fx/Text";
 
@@ -61,7 +62,7 @@ export default function Hero() {
   return (
     <section className={`hero${covered ? " is-covered" : ""}`} id="top">
       <div className="hero-bg">
-        <DotField fade={fade} paused={covered} />
+        <Liquid className="dotfield" smoke={progress} paused={covered} ready={ready} fallback={<DotField fade={fade} paused={covered} />} />
         <div className="hero-glow" aria-hidden />
         <motion.div className="hero-bg-veil" initial={{ opacity: 1 }} animate={{ opacity: ready ? 0 : 1 }} transition={{ duration: 2.2, ease: EASE }} />
       </div>

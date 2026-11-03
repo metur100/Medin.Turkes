@@ -50,23 +50,13 @@ const dict = {
       hint: "Keep scrolling",
     },
     stack: { eyebrow: "Toolbox" },
-    process: {
-      eyebrow: "Process",
-      chapters: [
-        { k: "Idea", t: "It begins as *a blank page.*" },
-        { k: "Build", t: "Built *piece by piece.*" },
-        { k: "Ship", t: "Shipped *with a ripple.*" },
-        { k: "Enter", t: "Now, *step inside.*" },
-        { k: "Choose", t: "" },
-      ],
-      screen: "Ideas, *shipped.*",
-      deploy: "Deploy",
-      live: "Live",
+    showcase: {
+      finale: "Your move",
       doorsTitle: "Every project opens a door. *Which one is yours?*",
       doors: [
-        { n: "I", t: "Web & Mobile Apps" },
-        { n: "II", t: "Landing Pages" },
-        { n: "III", t: "Azure Cloud" },
+        { n: "I", t: "See all projects" },
+        { n: "II", t: "What I build" },
+        { n: "III", t: "Start a project" },
       ],
     },
     timeline: {
@@ -159,23 +149,13 @@ const dict = {
       hint: "Weiter scrollen",
     },
     stack: { eyebrow: "Werkzeuge" },
-    process: {
-      eyebrow: "Prozess",
-      chapters: [
-        { k: "Idee", t: "Es beginnt mit *einer leeren Seite.*" },
-        { k: "Bau", t: "Gebaut, *Stück für Stück.*" },
-        { k: "Launch", t: "Live — *und es zieht Kreise.*" },
-        { k: "Eintritt", t: "Und jetzt: *tritt ein.*" },
-        { k: "Wahl", t: "" },
-      ],
-      screen: "Ideen, *geliefert.*",
-      deploy: "Deploy",
-      live: "Live",
+    showcase: {
+      finale: "Dein Zug",
       doorsTitle: "Jedes Projekt öffnet eine Tür. *Welche ist deine?*",
       doors: [
-        { n: "I", t: "Web- & Mobile-Apps" },
-        { n: "II", t: "Landingpages" },
-        { n: "III", t: "Azure-Cloud" },
+        { n: "I", t: "Alle Projekte ansehen" },
+        { n: "II", t: "Was ich baue" },
+        { n: "III", t: "Projekt starten" },
       ],
     },
     timeline: {
