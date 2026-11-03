@@ -15,7 +15,7 @@ export default function Contact() {
       <div className="grain" aria-hidden />
 
       <div className="wrap contact-in">
-        <Eyebrow index="06" label={s.eyebrow} />
+        <Eyebrow index="07" label={s.eyebrow} />
         <SplitReveal as="h2" className="contact-title" text={s.title} stagger={0.06} duration={1.2} />
 
         <div className="contact-row">

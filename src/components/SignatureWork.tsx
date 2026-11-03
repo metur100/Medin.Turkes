@@ -94,7 +94,7 @@ function Horizontal({ items }: { items: Project[] }) {
       <div className="hwork-sticky">
         <div className="hwork-head wrap">
           <div>
-            <Eyebrow index="03" label={t.work.eyebrow} />
+            <Eyebrow index="04" label={t.work.eyebrow} />
             <SplitReveal as="h2" className="sec-title" text={t.work.title} />
           </div>
           <div className="hwork-meta mono">
@@ -121,7 +121,7 @@ function Vertical({ items }: { items: Project[] }) {
     <section className="vwork" id="work">
       <div className="wrap">
         <div className="sec-head">
-          <Eyebrow index="03" label={t.work.eyebrow} />
+          <Eyebrow index="04" label={t.work.eyebrow} />
           <SplitReveal as="h2" className="sec-title" text={t.work.title} />
         </div>
         <div className="vwork-list">

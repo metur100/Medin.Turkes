@@ -10,6 +10,7 @@ import Cursor from "./components/fx/Cursor";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import Process from "./components/Process";
 import Focus from "./components/Focus";
 import SignatureWork from "./components/SignatureWork";
 import Stack from "./components/Stack";
@@ -26,6 +27,7 @@ function Home() {
       <Hero />
       <div className="content">
         <About />
+        <Process />
         <Focus />
         <SignatureWork />
         <Stack />
