@@ -50,15 +50,6 @@ const dict = {
       hint: "Keep scrolling",
     },
     stack: { eyebrow: "Toolbox" },
-    showcase: {
-      finale: "Your move",
-      doorsTitle: "Every project opens a door. *Which one is yours?*",
-      doors: [
-        { n: "I", t: "See all projects" },
-        { n: "II", t: "What I build" },
-        { n: "III", t: "Start a project" },
-      ],
-    },
     timeline: {
       eyebrow: "Path",
       title: "The road *so far*",
@@ -149,15 +140,6 @@ const dict = {
       hint: "Weiter scrollen",
     },
     stack: { eyebrow: "Werkzeuge" },
-    showcase: {
-      finale: "Dein Zug",
-      doorsTitle: "Jedes Projekt öffnet eine Tür. *Welche ist deine?*",
-      doors: [
-        { n: "I", t: "Alle Projekte ansehen" },
-        { n: "II", t: "Was ich baue" },
-        { n: "III", t: "Projekt starten" },
-      ],
-    },
     timeline: {
       eyebrow: "Pfad",
       title: "Der Weg *bisher*",

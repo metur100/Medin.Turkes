@@ -11,7 +11,7 @@ import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Focus from "./components/Focus";
-import Showcase from "./components/Showcase";
+import SignatureWork from "./components/SignatureWork";
 import Stack from "./components/Stack";
 import Timeline from "./components/Timeline";
 import Contact from "./components/Contact";
@@ -27,7 +27,7 @@ function Home() {
       <div className="content">
         <About />
         <Focus />
-        <Showcase />
+        <SignatureWork />
         <Stack />
         <Timeline />
         <Contact />
